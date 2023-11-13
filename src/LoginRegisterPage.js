@@ -22,7 +22,7 @@ const LoginRegisterPage = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorCode, errorMessage)
-                alert('wrong')
+                alert('Something went wrong')
             });
 
     }
