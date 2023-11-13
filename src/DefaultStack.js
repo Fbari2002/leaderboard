@@ -1,13 +1,9 @@
 import React from "react";
+import LoginRegisterPage from "./LoginRegisterPage";
 
 function DefaultStack() {
-    // return (
-    //     <div>
-    //         <Link to="/about">About</Link>
-    //         <Link to="/auth">Login/Register</Link>
-    //         <h2>Github Pages</h2>
-    //         <h3>Deploying React to Github</h3>
-    //     </div>
-    // );
+    return (
+        <LoginRegisterPage/>
+    );
 }
-export default App;
+export default DefaultStack;
