@@ -1,0 +1,20 @@
+.container {
+    height: 100vh;
+}
+
+.card {
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #008080;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom right, #008080, #800080);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom right, #008080, #800080);
+}
