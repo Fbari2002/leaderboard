@@ -65,12 +65,7 @@ const SignUpPage = () => {
                                     </button>
                                 </div>
                                 <div>
-                                    <p className="mb-0">
-                                        Already have an account?{' '}
-                                        <a href="/leaderboard" className="text-white-50 fw-bold">
-                                            Log In
-                                        </a>
-                                    </p>
+                                    <p className="mb-0">Already have an account? <a href="/leaderboard" className="text-info fw-bold">Login</a></p>
                                 </div>
                             </div>
                         </div>
