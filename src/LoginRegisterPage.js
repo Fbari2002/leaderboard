@@ -14,7 +14,7 @@ const LoginRegisterPage = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                navigate("/dashboard");
+                navigate("/leaderboard/dashboard");
                 console.log(user);
             })
             .catch((error) => {
