@@ -14,10 +14,10 @@ function App() {
             <Routes>
                 {/* Public routes */}
                 <Route path="/leaderboard" element={<DefaultStack/>}/>
-                <Route path="/signup" element={<SignUp/>}/>
+                <Route path="/leaderboard/signup" element={<SignUp/>}/>
 
                 {/* Private routes */}
-                <Route path="/dashboard" element={
+                <Route path="/leaderboard/dashboard" element={
                     <ProtectedRoute user={user}>
                         <AuthenticatedStack/>
                     </ProtectedRoute>

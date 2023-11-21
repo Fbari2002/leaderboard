@@ -61,7 +61,7 @@ const LoginRegisterPage = () => {
                                     <button className="btn btn-outline-light btn-lg px-5" type="submit" onClick={onLogin}>Login</button>
                                 </div>
                                 <div>
-                                    <p className="mb-0">Don't have an account? <a href="/signup" className="text-info fw-bold">Sign Up</a></p>
+                                    <p className="mb-0">Don't have an account? <a href="/leaderboard/signup" className="text-info fw-bold">Sign Up</a></p>
                                 </div>
                             </div>
                         </div>
