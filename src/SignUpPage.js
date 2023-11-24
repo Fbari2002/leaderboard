@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth} from './firebaseConfig';
 
@@ -65,7 +65,7 @@ const SignUpPage = () => {
                                     </button>
                                 </div>
                                 <div>
-                                    <p className="mb-0">Already have an account? <a href="/leaderboard" className="text-info fw-bold">Login</a></p>
+                                    <p className="mb-0">Already have an account? <Link to="/leaderboard" className="text-info fw-bold">Login</Link></p>
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './index.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {auth} from "./firebaseConfig";
 
 const LoginRegisterPage = () => {
@@ -57,11 +57,11 @@ const LoginRegisterPage = () => {
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </div>
-                                    <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p>
+                                    <p className="small mb-5 pb-lg-2"><Link className="text-white-50" to="#!">Forgot password?</Link></p>
                                     <button className="btn btn-outline-light btn-lg px-5" type="submit" onClick={onLogin}>Login</button>
                                 </div>
                                 <div>
-                                    <p className="mb-0">Don't have an account? <a href="/leaderboard/signup" className="text-info fw-bold">Sign Up</a></p>
+                                    <p className="mb-0">Don't have an account? <Link to="/leaderboard/signup" className="text-info fw-bold">Sign Up</Link></p>
                                 </div>
                             </div>
                         </div>
