@@ -13,7 +13,7 @@ const SignUpPage = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                navigate('/leaderboard/dashboard');
+                navigate('leaderboard/dashboard');
                 console.log(user);
             })
             .catch((error) => {
