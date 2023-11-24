@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import DefaultStack from './DefaultStack';
 import AuthenticatedStack from './AuthenticatedStack';
 import SignUp from './SignUpPage';
@@ -10,7 +10,7 @@ function App() {
     const {user} = useAuthentication();
 
     return (
-        <Router>
+        <Router basename={"/leaderboard"}>
             <Routes>
                 {/* Public routes */}
                 <Route path="leaderboard" element={<DefaultStack/>}/>
