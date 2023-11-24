@@ -10,7 +10,7 @@ function App() {
     const {user} = useAuthentication();
 
     return (
-        <Router basename={"/leaderboard"}>
+        <Router>
             <Routes>
                 {/* Public routes */}
                 <Route path="leaderboard" element={<DefaultStack/>}/>
