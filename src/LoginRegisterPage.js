@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import './index.css';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithGooglePopup } from "./firebaseConfig";
-import errorAlert from 'sweetalert';
+import sweetAlert from 'sweetalert';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const LoginRegisterPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [modal, setModal] = useState(false);
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -20,7 +23,7 @@ const LoginRegisterPage = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorCode, errorMessage);
-                errorAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
+                sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
             });
     }
 
@@ -28,6 +31,20 @@ const LoginRegisterPage = () => {
         const response = await signInWithGooglePopup();
         console.log(response);
         navigate("/leaderboard/dashboard");
+    }
+
+    const resetPassword = (e) => {
+        e.preventDefault();
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                sweetAlert("You'll be back soon", "A reset email has been sent. Please check your inbox", "success")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorCode, errorMessage);
+                sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
+            });
     }
 
     return (
@@ -74,9 +91,11 @@ const LoginRegisterPage = () => {
                                     </div>
 
                                     <div>
-                                        <Link className="text-info fw-bold" to="#!">
+                                        <button className="btn btn-outline-light btn-med px-4" onClick={() => setModal(true)}>
                                             Forgot password?
-                                        </Link>
+                                        </button>
+
+                                        <Modal open={modal === true}>Modal</Modal>
                                     </div>
                                 </div>
 
@@ -91,5 +110,6 @@ const LoginRegisterPage = () => {
         </section>
     );
 };
+
 
 export default LoginRegisterPage;
