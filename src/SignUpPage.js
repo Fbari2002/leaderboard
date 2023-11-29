@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {auth} from './firebaseConfig';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebaseConfig';
 import errorAlert from 'sweetalert';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const validate = () => {
+        return password.length >= 6 && email !== '';
+    };
 
     const onSignUp = (e) => {
         e.preventDefault();
@@ -45,20 +50,25 @@ const SignUpPage = () => {
                                         />
                                     </div>
                                     <div className="form-outline form-white mb-4">
-                                        <input
-                                            className="form-control form-control-lg"
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            required
-                                            placeholder="Password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
+                                        <div className="password-input-container">
+                                            <input
+                                                className="form-control form-control-lg password-input"
+                                                id="password"
+                                                name="password"
+                                                type="password"
+                                                required
+                                                placeholder="Password"
+                                                onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                            <PasswordStrengthBar password={password} />
+                                        </div>
                                     </div>
                                     <button
                                         className="btn btn-outline-light btn-lg px-5"
                                         type="submit"
+                                        disabled={!validate()}
                                         onClick={onSignUp}
+                                        title={!validate() ? 'Password must be at least 6 characters long and email cannot be blank.' : ''}
                                     >
                                         Sign Up
                                     </button>
