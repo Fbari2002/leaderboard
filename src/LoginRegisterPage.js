@@ -3,6 +3,7 @@ import './index.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {Link, useNavigate} from "react-router-dom";
 import {auth} from "./firebaseConfig";
+import errorAlert from 'sweetalert';
 
 const LoginRegisterPage = () => {
     const navigate = useNavigate();
@@ -12,16 +13,14 @@ const LoginRegisterPage = () => {
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
+            .then(() => {
                 navigate("/leaderboard/dashboard");
-                console.log(user);
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorCode, errorMessage);
-                alert('Something went wrong');
+                errorAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
             });
     }
 

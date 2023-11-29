@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth} from './firebaseConfig';
+import errorAlert from 'sweetalert';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -11,16 +12,14 @@ const SignUpPage = () => {
     const onSignUp = (e) => {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
+            .then(() => {
                 navigate('/leaderboard/dashboard');
-                console.log(user);
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorCode, errorMessage);
-                alert('Registration failed. Please try again.');
+                errorAlert("Oops!", "Registration failed! Please try again\n" + errorMessage, "error");
             });
     };
 
