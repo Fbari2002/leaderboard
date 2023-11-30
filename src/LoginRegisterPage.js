@@ -3,7 +3,8 @@ import './index.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithGooglePopup } from "./firebaseConfig";
-import errorAlert from 'sweetalert';
+import sweetAlert from 'sweetalert';
+import ModalButton from "./resetPasswordModal";
 
 const LoginRegisterPage = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const LoginRegisterPage = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error(errorCode, errorMessage);
-                errorAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
+                sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
             });
     }
 
@@ -74,9 +75,7 @@ const LoginRegisterPage = () => {
                                     </div>
 
                                     <div>
-                                        <Link className="text-info fw-bold" to="#!">
-                                            Forgot password?
-                                        </Link>
+                                        <ModalButton/>
                                     </div>
                                 </div>
 
@@ -91,5 +90,6 @@ const LoginRegisterPage = () => {
         </section>
     );
 };
+
 
 export default LoginRegisterPage;
