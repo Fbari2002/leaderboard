@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import './index.css';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithGooglePopup } from "./firebaseConfig";
 import sweetAlert from 'sweetalert';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import ModalButton from "./resetPasswordModal";
 
 const LoginRegisterPage = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [modal, setModal] = useState(false);
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -31,20 +29,6 @@ const LoginRegisterPage = () => {
         const response = await signInWithGooglePopup();
         console.log(response);
         navigate("/leaderboard/dashboard");
-    }
-
-    const resetPassword = (e) => {
-        e.preventDefault();
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                sweetAlert("You'll be back soon", "A reset email has been sent. Please check your inbox", "success")
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error(errorCode, errorMessage);
-                sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
-            });
     }
 
     return (
@@ -91,11 +75,7 @@ const LoginRegisterPage = () => {
                                     </div>
 
                                     <div>
-                                        <button className="btn btn-outline-light btn-med px-4" onClick={() => setModal(true)}>
-                                            Forgot password?
-                                        </button>
-
-                                        <Modal open={modal === true}>Modal</Modal>
+                                        <ModalButton/>
                                     </div>
                                 </div>
 
