@@ -1,11 +1,19 @@
 import React from "react";
+import Sidebar from "./SideBar";
+import Dashboard from "./Dashboard"
 
 function AuthenticatedStack() {
     return (
-        <div>
-            <h2>Auth Github Pages</h2>
-            <h3>Deploying React to Github</h3>
+        <div style={{
+            backgroundColor: '#ebe6e5',
+            display: 'flex',
+            flexDirection: 'row',
+        }}>
+            <Sidebar/>
+            <Dashboard/>
         </div>
+
     );
 }
+
 export default AuthenticatedStack;
