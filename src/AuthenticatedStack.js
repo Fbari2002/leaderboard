@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "./SideBar";
 import Dashboard from "./Dashboard"
 
-function AuthenticatedStack() {
+function AuthenticatedStack({user}) {
     return (
         <div style={{
             backgroundColor: '#ebe6e5',
@@ -10,7 +10,7 @@ function AuthenticatedStack() {
             flexDirection: 'row',
         }}>
             <Sidebar/>
-            <Dashboard/>
+            <Dashboard user={user}/>
         </div>
 
     );

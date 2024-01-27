@@ -9,6 +9,8 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
     const {user} = useAuthentication();
 
+    console.log('App: ' , user);
+
     return (
         <Router>
             <Routes>
@@ -19,7 +21,7 @@ function App() {
                 {/* Private routes */}
                 <Route path="/leaderboard/dashboard" element={
                     <ProtectedRoute user={user}>
-                        <AuthenticatedStack/>
+                        <AuthenticatedStack user={user}/>
                     </ProtectedRoute>
                 }/>
             </Routes>
