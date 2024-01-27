@@ -26,8 +26,7 @@ const LoginRegisterPage = () => {
     }
 
     const logGoogleUser = async () => {
-        const response = await signInWithGooglePopup();
-        console.log(response);
+        await signInWithGooglePopup();
         navigate("/leaderboard/dashboard");
     }
 
