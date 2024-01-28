@@ -47,7 +47,7 @@ const Sidebar = () => {
                             padding: '20px 5px',
                         }}
                     >
-                        BattleBoards 2023
+                        BattleBoards 2024
                     </div>
                 </CDBSidebarFooter>
             </CDBSidebar>
