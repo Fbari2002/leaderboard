@@ -5,6 +5,7 @@ import AuthenticatedStack from './AuthenticatedStack';
 import SignUp from './SignUpPage';
 import {useAuthentication} from "./UseAuth";
 import ProtectedRoute from "./ProtectedRoute";
+import CreateBoard from "./CreateBoard";
 
 function App() {
     const {user} = useAuthentication();
@@ -22,6 +23,12 @@ function App() {
                 <Route path="/leaderboard/dashboard" element={
                     <ProtectedRoute user={user}>
                         <AuthenticatedStack user={user}/>
+                    </ProtectedRoute>
+                }/>
+
+                <Route path="/leaderboard/createLeaderboard" element={
+                    <ProtectedRoute user={user}>
+                        <CreateBoard/>
                     </ProtectedRoute>
                 }/>
             </Routes>
