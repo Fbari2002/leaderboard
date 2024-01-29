@@ -28,7 +28,7 @@ function App() {
 
                 <Route path="/leaderboard/createLeaderboard" element={
                     <ProtectedRoute user={user}>
-                        <CreateBoard/>
+                        <CreateBoard user={user}/>
                     </ProtectedRoute>
                 }/>
             </Routes>
