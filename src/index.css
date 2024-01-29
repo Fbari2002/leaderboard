@@ -13,10 +13,10 @@
     background: #008080;
 
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to bottom right, #008080, #800080);
+    background: -webkit-linear-gradient(to bottom right, #800080, #008080);
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to bottom right, #008080, #800080);
+    background: linear-gradient(to bottom right, #800080, #008080);
 }
 
 .login-with-google-btn {

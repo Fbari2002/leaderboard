@@ -27,8 +27,8 @@ const Sidebar = () => {
                             <CDBSidebarMenuItem icon="columns" className={"navBarItem"}>Dashboard</CDBSidebarMenuItem>
                         </NavLink>
 
-                        <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="table" className={"navBarItem"}>Tables</CDBSidebarMenuItem>
+                        <NavLink exact to="/leaderboard/createLeaderboard" activeClassName="activeClicked">
+                            <CDBSidebarMenuItem icon="plus" className={"navBarItem"}>Create Leaderboard</CDBSidebarMenuItem>
                         </NavLink>
 
                         <NavLink exact to="/" activeClassName="activeClicked">
@@ -47,7 +47,7 @@ const Sidebar = () => {
                             padding: '20px 5px',
                         }}
                     >
-                        BattleBoards 2023
+                        BattleBoards 2024
                     </div>
                 </CDBSidebarFooter>
             </CDBSidebar>
