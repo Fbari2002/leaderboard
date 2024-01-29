@@ -7,7 +7,7 @@ import { db } from "./firebaseConfig";
 import { collection, addDoc } from 'firebase/firestore';
 import sweetAlert from 'sweetalert';
 
-const CreateBoard = () => {
+const CreateBoard = ({user}) => {
     const [inputFields, setInputFields] = useState([
         { playerName: '', playerScore: 0 }
     ]);
@@ -47,6 +47,7 @@ const CreateBoard = () => {
     const saveLeaderboard = async () => {
         try {
             await addDoc(collection(db, '/leaderboards'), {
+                userID: user.email,
                 leaderBoardName: leaderBoardName,
                 players: inputFields
             });
