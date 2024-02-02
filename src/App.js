@@ -6,6 +6,7 @@ import SignUp from './SignUpPage';
 import {useAuthentication} from "./UseAuth";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateBoard from "./CreateBoard";
+import CompleteProfile from "./CompleteProfile";
 
 function App() {
     const {user} = useAuthentication();
@@ -29,6 +30,12 @@ function App() {
                 <Route path="/leaderboard/createLeaderboard" element={
                     <ProtectedRoute user={user}>
                         <CreateBoard user={user}/>
+                    </ProtectedRoute>
+                }/>
+
+                <Route path="/leaderboard/completeProfile" element={
+                    <ProtectedRoute user={user}>
+                        <CompleteProfile user={user}/>
                     </ProtectedRoute>
                 }/>
             </Routes>

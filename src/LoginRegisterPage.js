@@ -15,7 +15,7 @@ const LoginRegisterPage = () => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                navigate("/leaderboard/dashboard");
+                navigate("/leaderboard/completeProfile");
             })
             .catch((error) => {
                 const errorCode = error.code;
