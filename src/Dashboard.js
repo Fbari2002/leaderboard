@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Card, CardImg} from "react-bootstrap";
 import AddButton from "./AddButton";
+import ViewButton from "./ViewButton";
 
 function Dashboard({user}) {
     const [profilePic, setProfilePic] = useState(null);
@@ -18,8 +19,15 @@ function Dashboard({user}) {
     return (
         <div className="container-fluid">
             <div className="container-fluid">
-                <Card style={{ width: '100%', maxWidth: '2000px', margin: 'auto', marginTop:'1%' , borderRadius: '15px', overflow: 'hidden' }}>
-                    <div style={{ background: gradient, padding: '20px', textAlign: 'center', color: 'white' }}>
+                <Card style={{
+                    width: '100%',
+                    maxWidth: '2000px',
+                    margin: 'auto',
+                    marginTop: '1%',
+                    borderRadius: '15px',
+                    overflow: 'hidden'
+                }}>
+                    <div style={{background: gradient, padding: '20px', textAlign: 'center', color: 'white'}}>
                         {profilePic && (
                             <CardImg
                                 variant="top"
@@ -34,21 +42,24 @@ function Dashboard({user}) {
                                 }}
                             />
                         )}
-                        <Card.Title style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '10px' }}>
+                        <Card.Title style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '10px'}}>
                             Welcome Back, {user.displayName}!
                         </Card.Title>
                     </div>
-                    <Card.Body style={{ background: 'white', padding: '20px', textAlign: 'center' }}>
-                        <Card.Text style={{ fontSize: '1rem', color: '#757575' }}>
-                            Explore the latest features and personalized content waiting for you. We're glad to have you back!
+                    <Card.Body style={{background: 'white', padding: '20px', textAlign: 'center'}}>
+                        <Card.Text style={{fontSize: '1rem', color: '#757575'}}>
+                            Explore the latest features and personalized content waiting for you. We're glad to have you
+                            back!
                         </Card.Text>
                     </Card.Body>
                 </Card>
             </div>
 
-            <div className={"container-fluid"}>
+            <div className={"container-fluid d-flex card-container"}>
                 <AddButton/>
+                <ViewButton/>
             </div>
+
         </div>
     );
 }

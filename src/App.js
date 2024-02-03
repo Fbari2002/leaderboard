@@ -7,11 +7,10 @@ import {useAuthentication} from "./UseAuth";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateBoard from "./CreateBoard";
 import CompleteProfile from "./CompleteProfile";
+import ViewBoard from "./ViewBoard";
 
 function App() {
     const {user} = useAuthentication();
-
-    console.log('App: ' , user);
 
     return (
         <Router>
@@ -36,6 +35,12 @@ function App() {
                 <Route path="/leaderboard/completeProfile" element={
                     <ProtectedRoute user={user}>
                         <CompleteProfile user={user}/>
+                    </ProtectedRoute>
+                }/>
+
+                <Route path="/leaderboard/viewBoard" element={
+                    <ProtectedRoute user={user}>
+                        <ViewBoard user={user}/>
                     </ProtectedRoute>
                 }/>
             </Routes>
