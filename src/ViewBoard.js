@@ -34,7 +34,7 @@ const ViewBoard = ({user}) => {
 
     useEffect(() => {
         fetchLeaderboard();
-    }, []);
+    });
 
     return (
         <div className="view-board-container">
