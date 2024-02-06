@@ -67,14 +67,14 @@
 
 .navBarItem {
     &:hover {
-        background-color: #843642;
+        background-color: #800080;
         box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
     }
 }
 
 .view-board-container {
     display: flex;
-    background-color: #f8f9fa;
+    background-color: #ebe6e5;
     min-height: 100vh;
 }
 
