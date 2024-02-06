@@ -31,8 +31,8 @@ const Sidebar = () => {
                             <CDBSidebarMenuItem icon="plus" className={"navBarItem"}>Create Leaderboard</CDBSidebarMenuItem>
                         </NavLink>
 
-                        <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user" className={"navBarItem"}>Profile page</CDBSidebarMenuItem>
+                        <NavLink exact to="/leaderboard/viewBoard" activeClassName="activeClicked">
+                            <CDBSidebarMenuItem icon="eye" className={"navBarItem"}>View Board</CDBSidebarMenuItem>
                         </NavLink>
 
                         <NavLink exact to="/" activeClassName="activeClicked">

@@ -8,6 +8,10 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.card-container {
+    gap: 25px;
+}
+
 .gradient-custom {
     /* fallback for old browsers */
     background: #008080;
@@ -66,4 +70,78 @@
         background-color: #843642;
         box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
     }
+}
+
+.view-board-container {
+    display: flex;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.view-board-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.leaderboard-card {
+    margin-top: 10px;
+    border: 2px solid #008080;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-name {
+    color: #008080;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.leaderboard-table thead th {
+    border-color: #008080;
+}
+
+.player-item {
+    background-color: #f8f9fa;
+}
+
+.table th, .table td {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    font-weight: normal;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.add-point-icon {
+    color: #fff;
+    margin-right: 5%;
+    transition: color 0.3s;
+}
+
+.add-point-icon:hover {
+    color: #FDCA40;
+    cursor: pointer;
+}
+
+.remove-point-icon {
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.remove-point-icon:hover {
+    color: #FDCA40;
+    cursor: pointer;
 }
