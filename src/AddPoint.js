@@ -7,9 +7,6 @@ import {doc, updateDoc} from 'firebase/firestore';
 const AddPoint = ({player, board}) => {
 
     const handleAddPoint = async () => {
-        console.log('Player', player);
-        console.log('Board', board);
-
         const newScore = player.playerScore + 1;
         const playerRef = doc(db, 'leaderboards', board.id);
 
