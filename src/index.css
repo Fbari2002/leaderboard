@@ -125,23 +125,13 @@
     text-align: end;
 }
 
-.add-point-icon {
+.point-icon {
     color: #fff;
     margin-right: 5%;
     transition: color 0.3s;
 }
 
-.add-point-icon:hover {
-    color: #FDCA40;
-    cursor: pointer;
-}
-
-.remove-point-icon {
-    color: #fff;
-    transition: color 0.3s;
-}
-
-.remove-point-icon:hover {
+.point-icon:hover {
     color: #FDCA40;
     cursor: pointer;
 }
