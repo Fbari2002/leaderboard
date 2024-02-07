@@ -92,7 +92,8 @@ const ViewBoard = ({user}) => {
                                             backgroundColor: calculateColor(index, board.players.length),
                                             color: '#fff'
                                         }}>
-                                            <AddPoint player={player} board={board}/> <RemovePoint/>
+                                            <AddPoint player={player} board={board}/>
+                                            <RemovePoint player={player} board={board}/>
                                         </td>
                                     </tr>
                                 ))}
