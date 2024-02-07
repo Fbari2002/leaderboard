@@ -8,7 +8,7 @@ const RemovePoint = () => {
         <FontAwesomeIcon
             icon={faSquareMinus}
             size="2xl"
-            className="remove-point-icon"
+            className="point-icon"
         />
     );
 };
