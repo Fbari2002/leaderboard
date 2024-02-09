@@ -100,7 +100,6 @@ const CreateBoard = ({user}) => {
                                             value={input.playerScore}
                                             onChange={(event) => handleFormChange(index, event)}
                                             placeholder="0"
-                                            r
                                         />
                                     </FloatingLabel>
                                 </Col>
