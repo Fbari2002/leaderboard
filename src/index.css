@@ -81,6 +81,7 @@
 .view-board-content {
     flex: 1;
     padding: 30px;
+    user-select: none;
 }
 
 .leaderboard-card {

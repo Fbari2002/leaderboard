@@ -16,7 +16,11 @@ const CreateBoard = ({user}) => {
 
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
-        data[index][event.target.name] = event.target.value;
+        if (event.target.name === "playerScore") {
+            data[index][event.target.name] = parseInt(event.target.value);
+        } else {
+            data[index][event.target.name] = event.target.value;
+        }
         setInputFields(data);
     }
 
