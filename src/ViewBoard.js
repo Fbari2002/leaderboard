@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import AddPoint from "./AddPoint";
 import RemovePoint from "./RemovePoint";
+import FlipMove from "react-flip-move";
 
 const ViewBoard = ({user}) => {
     const [leaderboard, setLeaderBoard] = useState(null);
@@ -67,37 +68,37 @@ const ViewBoard = ({user}) => {
                             <h2 className="leaderboard-name">{board.leaderBoardName}</h2>
                             <Table className={"leaderboard-table"} responsive hover>
                                 <thead>
-                                <tr>
-                                    <th>Player Name</th>
-                                    <th>Score</th>
-                                    <th>Modifiers</th>
-                                </tr>
+                                    <tr>
+                                        <th>Player Name</th>
+                                        <th>Score</th>
+                                        <th>Modifiers</th>
+                                    </tr>
                                 </thead>
 
-                                <tbody>
-                                {board.players.map((player, index) => (
-                                    <tr
-                                        key={index}
-                                        className="player-item"
-                                    >
-                                        <td style={{
-                                            backgroundColor: calculateColor(index, board.players.length),
-                                            color: '#fff'
-                                        }}>{player.playerName}</td>
-                                        <td style={{
-                                            backgroundColor: calculateColor(index, board.players.length),
-                                            color: '#fff'
-                                        }}>{player.playerScore}</td>
-                                        <td style={{
-                                            backgroundColor: calculateColor(index, board.players.length),
-                                            color: '#fff'
-                                        }}>
-                                            <AddPoint player={player} board={board}/>
-                                            <RemovePoint player={player} board={board}/>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
+                                <FlipMove typeName="tBody">
+                                    {board.players.map((player, index) => (
+                                        <tr
+                                            key={player.playerName}
+                                            className="player-item"
+                                        >
+                                            <td style={{
+                                                backgroundColor: calculateColor(index, board.players.length),
+                                                color: '#fff'
+                                            }}>{player.playerName}</td>
+                                            <td style={{
+                                                backgroundColor: calculateColor(index, board.players.length),
+                                                color: '#fff'
+                                            }}>{player.playerScore}</td>
+                                            <td style={{
+                                                backgroundColor: calculateColor(index, board.players.length),
+                                                color: '#fff'
+                                            }}>
+                                                <AddPoint player={player} board={board}/>
+                                                <RemovePoint player={player} board={board}/>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </FlipMove>
                             </Table>
                         </div>
                     ))}
