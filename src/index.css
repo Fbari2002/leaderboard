@@ -1,3 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #ebe6e5
+}
+
+.custom-gradient {
+    background-image: linear-gradient(135deg, #800080, #008080);
+}
+
 .container {
     height: 100vh;
 }
