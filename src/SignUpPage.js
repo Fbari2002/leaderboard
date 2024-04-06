@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebaseConfig';
 import errorAlert from 'sweetalert';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { Button } from "@material-tailwind/react";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const SignUpPage = () => {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
+                //TODO should this re route to complete Profile?
                 navigate('/leaderboard/dashboard');
             })
             .catch((error) => {
@@ -29,55 +31,51 @@ const SignUpPage = () => {
     };
 
     return (
-        <section className="vh-100 gradient-custom">
-            <div className="container py-5 h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card bg-dark text-white rounded-1rem">
-                            <div className="card-body p-5 text-center">
-                                <div className="mb-md-5 mt-md-4 pb-5">
-                                    <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
-                                    <p className="text-white-50 mb-5">Create a new account</p>
-                                    <div className="form-outline form-white mb-4">
-                                        <input
-                                            className="form-control form-control-lg"
-                                            id="email-address"
-                                            name="email"
-                                            type="email"
-                                            required
-                                            placeholder="Email address"
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    </div>
-                                    <div className="form-outline form-white mb-4">
-                                        <div className="password-input-container">
-                                            <input
-                                                className="form-control form-control-lg password-input"
-                                                id="password"
-                                                name="password"
-                                                type="password"
-                                                required
-                                                placeholder="Password"
-                                                onChange={(e) => setPassword(e.target.value)}
-                                            />
-                                            <PasswordStrengthBar password={password} />
-                                        </div>
-                                    </div>
-                                    <button
-                                        className="btn btn-outline-light btn-lg px-5"
-                                        type="submit"
-                                        disabled={!validate()}
-                                        onClick={onSignUp}
-                                        title={!validate() ? 'Password must be at least 6 characters long and email cannot be blank.' : ''}
-                                    >
-                                        Sign Up
-                                    </button>
-                                </div>
-                                <div>
-                                    <p className="mb-0">Already have an account? <Link to="/leaderboard" className="text-info fw-bold">Login</Link></p>
-                                </div>
-                            </div>
+        <section className="custom-gradient min-h-screen flex justify-center items-center">
+            <div className="container mx-auto p-5">
+                <div className="max-w-md w-full mx-auto bg-gray-900 rounded-lg p-8">
+                    <h2 className="text-white font-bold text-3xl mb-4 text-center">Sign Up</h2>
+                    <p className="text-white text-center mb-6">Create a new account</p>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="email-address"
+                            name="email"
+                            type="email"
+                            required
+                            placeholder="Email address"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <div className="password-input-container">
+                            <input
+                                className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <PasswordStrengthBar password={password}/>
                         </div>
+                    </div>
+                    <div className="flex justify-center">
+                        <Button
+                            disabled={!validate()}
+                            onClick={onSignUp}
+                            color={"white"}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+                    <div className="mt-4">
+                        <p className="text-white text-center mb-0">Already have an account?
+                            <Link to="/leaderboard" className="text-blue-500 font-bold">
+                                <br/> Login
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </div>

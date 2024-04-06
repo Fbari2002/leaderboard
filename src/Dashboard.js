@@ -1,26 +1,25 @@
 import React, {useEffect, useState} from "react";
 import {
     Card,
-    CardHeader,
     CardBody,
-    CardFooter,
-    Typography,
-    Button,
+    Typography
 } from "@material-tailwind/react";
 import AddButton from "./AddButton";
 import ViewButton from "./ViewButton";
+import {getAuth} from "firebase/auth";
 
-function Dashboard({user}) {
+function Dashboard() {
     const [profilePic, setProfilePic] = useState(null);
+    const auth = getAuth();
 
     useEffect(() => {
         const fetchProfilePic = async () => {
-            const picUrl = user ? user.photoURL : null;
+            const picUrl = auth.currentUser ? auth.currentUser.photoURL : null;
             setProfilePic(picUrl);
         };
 
         fetchProfilePic();
-    }, [user]);
+    }, [auth.currentUser]);
 
     return (
         <div className="container mx-auto mt-4 flex flex-col items-center">
@@ -35,7 +34,7 @@ function Dashboard({user}) {
                     )}
 
                     <Typography className="text-2xl font-bold mb-2">
-                        Welcome Back, {user.displayName}!
+                        Welcome Back, {auth.currentUser.displayName}!
                     </Typography>
                 </div>
                 <CardBody className="bg-white py-6 px-4 text-center">
