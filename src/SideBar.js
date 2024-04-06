@@ -20,14 +20,27 @@ import {
     Bars3Icon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {NavLink} from 'react-router-dom';
-
+import {NavLink, useNavigate} from 'react-router-dom';
+import {signOut} from "firebase/auth";
+import {getAuth} from 'firebase/auth';
+import sweetAlert from "sweetalert";
 
 export function SidebarWithBurgerMenu() {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
+    const auth = getAuth();
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                navigate('/leaderboard')
+            })
+            .catch((error) => {
+                sweetAlert("Oops!", "Something went wrong!\n" + error, "error");
+            });
+    }
 
     return (
         <>
@@ -85,19 +98,23 @@ export function SidebarWithBurgerMenu() {
 
                         <hr className="my-2 border-blue-gray-50"/>
 
-                        <ListItem>
+                        <ListItem disabled={true}>
                             <ListItemPrefix>
                                 <UserCircleIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Profile
                         </ListItem>
-                        <ListItem>
+
+                        <ListItem disabled={true}>
                             <ListItemPrefix>
                                 <Cog6ToothIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Settings
                         </ListItem>
-                        <ListItem>
+
+                        <ListItem
+                            onClick={handleSignOut}
+                        >
                             <ListItemPrefix>
                                 <PowerIcon className="h-5 w-5"/>
                             </ListItemPrefix>
@@ -109,5 +126,6 @@ export function SidebarWithBurgerMenu() {
         </>
     );
 }
+
 
 export default SidebarWithBurgerMenu;
