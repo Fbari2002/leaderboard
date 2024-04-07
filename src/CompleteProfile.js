@@ -105,7 +105,13 @@ const CompleteProfile = () => {
                         />
                     </div>
                     <div className="flex justify-center">
-                        <Button color="white" type="submit" disabled={!validateForm()}>
+                        <Button
+                            color="white"
+                            type="submit"
+                            gradient={true}
+                            ripple={true}
+                            disabled={!validateForm()}
+                        >
                             Update
                         </Button>
                     </div>
