@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebaseConfig';
+import React, {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from './firebaseConfig';
 import errorAlert from 'sweetalert';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { Button } from "@material-tailwind/react";
+import {Button} from "@material-tailwind/react";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -66,6 +66,8 @@ const SignUpPage = () => {
                             disabled={!validate()}
                             onClick={onSignUp}
                             color={"white"}
+                            gradient={true}
+                            ripple={true}
                         >
                             Sign Up
                         </Button>

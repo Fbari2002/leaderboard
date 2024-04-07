@@ -63,13 +63,15 @@ const LoginRegisterPage = () => {
                             color="white"
                             className="px-4 py-2"
                             onClick={onLogin}
+                            gradient={true}
+                            ripple={true}
                         >
                             Login
                         </Button>
                         <Button
                             color="white"
                             onClick={logGoogleUser}
-                            className="flex items-center justify-center  gap-2"
+                            className="flex items-center justify-center gap-2"
                         >
                             <img
                                 src="https://docs.material-tailwind.com/icons/google.svg"
