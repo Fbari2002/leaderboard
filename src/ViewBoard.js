@@ -36,7 +36,7 @@ const ViewBoard = ({user}) => {
     };
 
     useEffect(() => {
-        // fetchLeaderboard();
+        fetchLeaderboard();
     });
 
     const [boards, setBoards] = useState([
