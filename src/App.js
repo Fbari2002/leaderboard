@@ -22,7 +22,7 @@ function App() {
                 {/* Private routes */}
                 <Route path="/leaderboard/dashboard" element={
                     <ProtectedRoute user={user}>
-                        <AuthenticatedStack user={user}/>
+                        <AuthenticatedStack/>
                     </ProtectedRoute>
                 }/>
 

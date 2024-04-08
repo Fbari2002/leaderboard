@@ -1,65 +1,54 @@
 import React, {useEffect, useState} from "react";
-import {Card, CardImg} from "react-bootstrap";
+import {
+    Card,
+    CardBody,
+    Typography
+} from "@material-tailwind/react";
 import AddButton from "./AddButton";
 import ViewButton from "./ViewButton";
+import {getAuth} from "firebase/auth";
 
-function Dashboard({user}) {
+function Dashboard() {
     const [profilePic, setProfilePic] = useState(null);
-    const gradient = 'linear-gradient(135deg, #800080, #008080)';
+    const auth = getAuth();
 
     useEffect(() => {
         const fetchProfilePic = async () => {
-            const picUrl = user ? user.photoURL : null;
+            const picUrl = auth.currentUser ? auth.currentUser.photoURL : null;
             setProfilePic(picUrl);
         };
 
         fetchProfilePic();
-    }, [user]);
+    }, [auth.currentUser]);
 
     return (
-        <div className="container-fluid">
-            <div className="container-fluid">
-                <Card style={{
-                    width: '100%',
-                    maxWidth: '2000px',
-                    margin: 'auto',
-                    marginTop: '1%',
-                    borderRadius: '15px',
-                    overflow: 'hidden'
-                }}>
-                    <div style={{background: gradient, padding: '20px', textAlign: 'center', color: 'white'}}>
-                        {profilePic && (
-                            <CardImg
-                                variant="top"
-                                src={profilePic}
-                                alt="Profile Pic"
-                                style={{
-                                    width: '100px',
-                                    height: '100px',
-                                    borderRadius: '50%',
-                                    marginBottom: '20px',
-                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                }}
-                            />
-                        )}
-                        <Card.Title style={{fontSize: '2rem', fontWeight: 'bold', marginBottom: '10px'}}>
-                            Welcome Back, {user.displayName}!
-                        </Card.Title>
-                    </div>
-                    <Card.Body style={{background: 'white', padding: '20px', textAlign: 'center'}}>
-                        <Card.Text style={{fontSize: '1rem', color: '#757575'}}>
-                            Explore the latest features and personalized content waiting for you. We're glad to have you
-                            back!
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            </div>
+        <div className="container mx-auto mt-4 flex flex-col items-center">
+            <Card className="max-w-2xl rounded-lg overflow-hidden">
+                <div className="custom-gradient text-white py-8 px-4 text-center">
+                    {profilePic && (
+                        <img
+                            src={profilePic}
+                            alt="Profile Pic"
+                            className="w-24 h-24 rounded-full mx-auto mb-4 shadow-md"
+                        />
+                    )}
 
-            <div className={"container-fluid d-flex card-container"}>
+                    <Typography className="text-2xl font-bold mb-2">
+                        Welcome Back, {auth.currentUser.displayName}!
+                    </Typography>
+                </div>
+                <CardBody className="bg-white py-6 px-4 text-center">
+                    <Typography className="text-lg text-gray-700">
+                        Explore the latest features and personalized content waiting for you. We're glad to have you
+                        back!
+                    </Typography>
+                </CardBody>
+            </Card>
+
+            <div className="mt-4 flex flex-col items-center">
                 <AddButton/>
                 <ViewButton/>
             </div>
-
         </div>
     );
 }

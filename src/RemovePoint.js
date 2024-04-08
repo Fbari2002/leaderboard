@@ -1,6 +1,5 @@
 import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSquareMinus} from "@fortawesome/free-solid-svg-icons";
+import {MinusIcon} from "@heroicons/react/24/solid";
 import {db} from "./firebaseConfig";
 import {doc, updateDoc} from 'firebase/firestore';
 
@@ -26,10 +25,8 @@ const RemovePoint = ({player, board}) => {
     }
 
     return (
-        <FontAwesomeIcon
-            icon={faSquareMinus}
-            size="2xl"
-            className="point-icon"
+        <MinusIcon
+            className="h-5 w-5"
             onClick={handleRemovePoint}
         />
     );

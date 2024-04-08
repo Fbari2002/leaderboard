@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import {Button} from "@material-tailwind/react";
 import {sendPasswordResetEmail} from "firebase/auth";
 import {auth} from "./firebaseConfig";
 import sweetAlert from "sweetalert";
-const CustomModal = ({ isOpen, onRequestClose, children }) => {
+
+const CustomModal = ({isOpen, onRequestClose, children}) => {
     return (
         <Modal
             show={isOpen}
@@ -45,10 +46,14 @@ const ModalButton = () => {
     return (
         <>
             <Button
+                color={"white"}
+                gradient={true}
+                ripple={true}
+                className="px-4 py-2"
                 onClick={openModal}
-                className={"btn btn-outline-light btn-sm px-4"}
-                variant={"outline-light"}
-            >Forgotten Password?</Button>
+            >
+                Forgotten Password?
+            </Button>
             <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal}>
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -69,8 +74,8 @@ const ModalButton = () => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={closeModal} variant="outline-dark">Cancel</Button>
-                    <Button onClick={resetPassword} variant="danger">Reset</Button>
+                    <Button onClick={closeModal} >Cancel</Button>
+                    <Button onClick={resetPassword} color="red">Reset</Button>
                 </Modal.Footer>
             </CustomModal>
         </>

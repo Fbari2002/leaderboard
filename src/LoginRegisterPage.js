@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import './index.css';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
-import { auth, signInWithGooglePopup } from "./firebaseConfig";
+import React, {useState} from 'react';
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {Link, useNavigate} from "react-router-dom";
+import {auth, signInWithGooglePopup} from "./firebaseConfig";
 import sweetAlert from 'sweetalert';
 import ModalButton from "./resetPasswordModal";
+import {Button} from "@material-tailwind/react";
 
 const LoginRegisterPage = () => {
     const navigate = useNavigate();
@@ -31,64 +31,67 @@ const LoginRegisterPage = () => {
     }
 
     return (
-        <section className="vh-100 gradient-custom">
-            <div className="container py-5 h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card bg-dark text-white rounded-1rem">
-                            <div className="card-body p-5 text-center">
-                                <div className="mb-md-5 mt-md-4 pb-4">
-                                    <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p className="text-white-50 mb-4">Please enter your email and password</p>
-                                    <div className="form-outline form-white mb-3">
-                                        <input
-                                            className="form-control form-control-lg"
-                                            id="email-address"
-                                            name="email"
-                                            type="email"
-                                            required
-                                            placeholder="Email address"
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    </div>
-                                    <div className="form-outline form-white mb-3">
-                                        <input
-                                            className="form-control form-control-lg"
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            required
-                                            placeholder="Password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div className="d-flex justify-content-between align-items-center mb-4">
-                                        <button className="btn btn-outline-light btn-lg px-4" type="submit" onClick={onLogin}>
-                                            Login
-                                        </button>
-
-                                        <button type="button" onClick={logGoogleUser} className="login-with-google-btn px-8">
-                                            Login with Google
-                                        </button>
-                                    </div>
-
-                                    <div>
-                                        <ModalButton/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <p className="mb-0">Don't have an account? <Link to="/leaderboard/signup" className="text-info fw-bold">Sign Up</Link></p>
-                                </div>
-                            </div>
-                        </div>
+        <section className="custom-gradient min-h-screen flex justify-center items-center">
+            <div className="container mx-auto p-5">
+                <div className="max-w-md w-full mx-auto bg-gray-900 rounded-lg p-8">
+                    <h2 className="text-white font-bold text-3xl mb-4 text-center">Login</h2>
+                    <p className="text-white text-center mb-6">Please enter your email and password</p>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="email-address"
+                            name="email"
+                            type="email"
+                            required
+                            placeholder="Email address"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-6 flex flex-col gap-4">
+                        <Button
+                            color="white"
+                            className="px-4 py-2"
+                            onClick={onLogin}
+                            gradient={true}
+                            ripple={true}
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            color="white"
+                            onClick={logGoogleUser}
+                            className="flex items-center justify-center gap-2"
+                        >
+                            <img
+                                src="https://docs.material-tailwind.com/icons/google.svg"
+                                alt="Google Logo"
+                                className="h-4 w-4"
+                            />
+                            <span>Continue with Google</span>
+                        </Button>
+
+                        <ModalButton/>
+                    </div>
+                    <p className="text-white text-center mb-0">Don't have an account?
+                        <Link to="/leaderboard/signup" className="text-blue-500 font-bold">
+                            <br/>Sign Up
+                        </Link>
+                    </p>
                 </div>
             </div>
         </section>
     );
 };
-
 
 export default LoginRegisterPage;

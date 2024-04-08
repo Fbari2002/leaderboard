@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './index.css';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
-import { FloatingLabel, Form, Button } from 'react-bootstrap';
 import errorAlert from 'sweetalert';
+import { Button } from '@material-tailwind/react';
 
 const CompleteProfile = () => {
     const navigate = useNavigate();
@@ -29,10 +28,9 @@ const CompleteProfile = () => {
     };
 
     const onProfileUpdate = async (photoURL) => {
-        const auth = getAuth();
+        const auth = await getAuth();
 
         try {
-            // Update profile with display name and photoURL
             await updateProfile(auth.currentUser, {
                 displayName: firstName + ' ' + lastName,
                 photoURL: photoURL,
@@ -50,12 +48,9 @@ const CompleteProfile = () => {
         const auth = getAuth();
 
         if (file) {
-            // Upload profile picture to storage
             const storage = getStorage();
             const storageRef = ref(storage, 'profile_pics/' + auth.currentUser.uid);
             await uploadBytes(storageRef, file);
-
-            // Get the download URL and set it in the state
             const photoURL = await getDownloadURL(storageRef);
             setProfilePic(photoURL);
         }
@@ -69,69 +64,60 @@ const CompleteProfile = () => {
                 await onProfileUpdate(profilePic);
             }
         } else {
-            // Handle the case when the form is not valid
             console.error('Form validation failed');
-            // You can display an error message or take other actions
             errorAlert('Nice try!', 'You must provide a full name', 'error');
         }
     };
 
     return (
-        <>
-            <section className="vh-100 gradient-custom">
-                <div className="container py-5 h-100">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            <div className="card bg-dark text-white rounded-1rem">
-                                <div className="card-body p-5 text-center">
-                                    <div className="mb-md-5 mt-md-4 pb-4">
-                                        <h2 className="fw-bold mb-2 text-uppercase">Complete Profile</h2>
-                                        <p className="text-white-50 mb-4">
-                                            Please enter your name and upload a profile picture
-                                        </p>
-
-                                        <Form onSubmit={handleSubmit}>
-                                            <FloatingLabel controlId="first-name" label="First Name *" className="mb-3">
-                                                <Form.Control
-                                                    type="text"
-                                                    required
-                                                    onChange={(e) => setFirstName(e.target.value)}
-                                                />
-                                            </FloatingLabel>
-
-                                            <div className="my-3"></div>
-
-                                            <FloatingLabel controlId="last-name" label="Last Name *" className="mb-3">
-                                                <Form.Control
-                                                    type="text"
-                                                    required
-                                                    onChange={(e) => setLastName(e.target.value)}
-                                                />
-                                            </FloatingLabel>
-
-                                            <div className="my-3">
-                                                <Form.Control
-                                                    type="file"
-                                                    id="profile-pic"
-                                                    accept="image/*"
-                                                    onChange={handleImageChange}
-                                                />
-                                            </div>
-
-                                            <div className="d-flex justify-content-center my-4">
-                                                <Button variant="outline-light" size="lg" type="submit">
-                                                    Update
-                                                </Button>
-                                            </div>
-                                        </Form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <section className="custom-gradient min-h-screen flex justify-center items-center">
+            <div className="max-w-md w-full mx-auto bg-gray-900 rounded-lg p-8">
+                <h2 className="text-white font-bold text-3xl mb-4 text-center">Complete Profile</h2>
+                <p className="text-white text-center mb-4">Please enter your name and upload a profile picture</p>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            type="text"
+                            placeholder="First Name"
+                            required
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
                     </div>
-                </div>
-            </section>
-        </>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            type="text"
+                            placeholder="Last Name"
+                            required
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <input
+                            className="w-full px-3 py-2 bg-gray-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            type="file"
+                            id="profile-pic"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                    </div>
+                    <div className="flex justify-center">
+                        <Button
+                            color="white"
+                            type="submit"
+                            gradient={true}
+                            ripple={true}
+                            disabled={!validateForm()}
+                        >
+                            Update
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </section>
     );
 };
 

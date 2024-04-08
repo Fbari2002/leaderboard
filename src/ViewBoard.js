@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Container, Table} from "react-bootstrap";
 import Sidebar from "./SideBar";
 import "./index.css";
 import {db} from "./firebaseConfig";
@@ -9,9 +8,7 @@ import {
     where,
     getDocs
 } from "firebase/firestore";
-import AddPoint from "./AddPoint";
-import RemovePoint from "./RemovePoint";
-import FlipMove from "react-flip-move";
+import Board from "./Board";
 
 const ViewBoard = ({user}) => {
     const [leaderboard, setLeaderBoard] = useState(null);
@@ -42,67 +39,53 @@ const ViewBoard = ({user}) => {
         fetchLeaderboard();
     });
 
-    const calculateColor = (index, totalRows) => {
-        const startColor = [128, 0, 128]; // #800080
-        const endColor = [0, 128, 128]; // #008080
-
-        const rDiff = (endColor[0] - startColor[0]) / (totalRows - 1);
-        const gDiff = (endColor[1] - startColor[1]) / (totalRows - 1);
-        const bDiff = (endColor[2] - startColor[2]) / (totalRows - 1);
-
-        const r = Math.round(startColor[0] + rDiff * index);
-        const g = Math.round(startColor[1] + gDiff * index);
-        const b = Math.round(startColor[2] + bDiff * index);
-
-        return `rgb(${r}, ${g}, ${b})`;
-    };
+    const [boards, setBoards] = useState([
+        {
+            'leaderBoardName': 'name',
+            'players': [
+                {
+                    'playerName': 'test',
+                    'playerScore': 5
+                }, {
+                    'playerName': 'test2',
+                    'playerScore': 55
+                }, {
+                    'playerName': 'test3',
+                    'playerScore': 2
+                }
+            ]
+        }, {
+            'leaderBoardName': 'name2',
+            'players': [
+                {
+                    'playerName': 'test',
+                    'playerScore': 5
+                }, {
+                    'playerName': 'test2',
+                    'playerScore': 55
+                }, {
+                    'playerName': 'test3',
+                    'playerScore': 2
+                }
+            ]
+        }
+    ])
 
     return (
-        <div className="view-board-container">
+        <div>
             <Sidebar/>
 
-            <Container fluid className="view-board-content">
-                {leaderboard &&
-                    leaderboard.map((board) => (
-                        <div key={board.id} className="leaderboard-card">
-                            <h2 className="leaderboard-name">{board.leaderBoardName}</h2>
-                            <Table className={"leaderboard-table"} responsive hover>
-                                <thead>
-                                    <tr>
-                                        <th>Player Name</th>
-                                        <th>Score</th>
-                                        <th>Modifiers</th>
-                                    </tr>
-                                </thead>
+            <div className="flex justify-center items-center py-4 bg-teal-700 text-white text-2xl font-bold">
+                View Leaderboard
+            </div>
 
-                                <FlipMove typeName="tBody">
-                                    {board.players.map((player, index) => (
-                                        <tr
-                                            key={player.playerName}
-                                            className="player-item"
-                                        >
-                                            <td style={{
-                                                backgroundColor: calculateColor(index, board.players.length),
-                                                color: '#fff'
-                                            }}>{player.playerName}</td>
-                                            <td style={{
-                                                backgroundColor: calculateColor(index, board.players.length),
-                                                color: '#fff'
-                                            }}>{player.playerScore}</td>
-                                            <td style={{
-                                                backgroundColor: calculateColor(index, board.players.length),
-                                                color: '#fff'
-                                            }}>
-                                                <AddPoint player={player} board={board}/>
-                                                <RemovePoint player={player} board={board}/>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </FlipMove>
-                            </Table>
-                        </div>
-                    ))}
-            </Container>
+            <br/>
+
+            <div>
+                {leaderboard && leaderboard.map((board) => (
+                    <Board board={board}/>
+                ))}
+            </div>
         </div>
     );
 };

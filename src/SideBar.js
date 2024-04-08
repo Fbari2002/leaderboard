@@ -1,58 +1,131 @@
-import React from 'react';
+import React from "react";
 import {
-    CDBSidebar,
-    CDBSidebarContent,
-    CDBSidebarFooter,
-    CDBSidebarHeader,
-    CDBSidebarMenu,
-    CDBSidebarMenuItem,
-} from 'cdbreact';
-import { NavLink } from 'react-router-dom';
+    IconButton,
+    Typography,
+    List,
+    ListItem,
+    ListItemPrefix,
+    Drawer,
+    Card,
+} from "@material-tailwind/react";
+import {
+    UserCircleIcon,
+    Cog6ToothIcon,
+    PowerIcon,
+    HomeIcon,
+    PlusIcon,
+    EyeIcon
+} from "@heroicons/react/24/solid";
+import {
+    Bars3Icon,
+    XMarkIcon,
+} from "@heroicons/react/24/outline";
+import {NavLink, useNavigate} from 'react-router-dom';
+import {signOut} from "firebase/auth";
+import {getAuth} from 'firebase/auth';
+import sweetAlert from "sweetalert";
 
-const Sidebar = () => {
+export function SidebarWithBurgerMenu() {
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const openDrawer = () => setIsDrawerOpen(true);
+    const closeDrawer = () => setIsDrawerOpen(false);
+    const auth = getAuth();
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                navigate('/leaderboard')
+            })
+            .catch((error) => {
+                sweetAlert("Oops!", "Something went wrong!\n" + error, "error");
+            });
+    }
+
     return (
-        <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-            <CDBSidebar textColor="#fff" backgroundColor="#008080">
-                <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                    <img
-                        src={process.env.PUBLIC_URL + '/LogoWhite.png'}
-                        alt=""
-                        style={{ width: '90%' }}
-                    />
-                </CDBSidebarHeader>
-
-                <CDBSidebarContent className="sidebar-content">
-                    <CDBSidebarMenu>
-                        <NavLink exact to="/leaderboard/dashboard" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="columns" className={"navBarItem"}>Dashboard</CDBSidebarMenuItem>
+        <>
+            <IconButton variant="text" size="lg" onClick={openDrawer}>
+                {isDrawerOpen ? (
+                    <XMarkIcon className="h-8 w-8 stroke-2"/>
+                ) : (
+                    <Bars3Icon className="h-8 w-8 stroke-2"/>
+                )}
+            </IconButton>
+            <Drawer open={isDrawerOpen} onClose={closeDrawer}>
+                <Card
+                    color="transparent"
+                    shadow={false}
+                    className="h-[calc(100vh-2rem)] w-full p-4"
+                >
+                    <div className="mb-2 flex items-center gap-4 p-4">
+                        {/*TODO Update logo*/}
+                        <img
+                            src={process.env.PUBLIC_URL + '/Logo.png'}
+                            alt="brand"
+                            className="h-10 w-10"
+                        />
+                        <Typography variant="h5" color="blue-gray">
+                            BattleBoards
+                        </Typography>
+                    </div>
+                    <List>
+                        <NavLink exact to="/leaderboard/dashboard">
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <HomeIcon className="h-5 w-5"/>
+                                </ListItemPrefix>
+                                Dashboard
+                            </ListItem>
                         </NavLink>
 
-                        <NavLink exact to="/leaderboard/createLeaderboard" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="plus" className={"navBarItem"}>Create Leaderboard</CDBSidebarMenuItem>
+                        <NavLink exact to="/leaderboard/createLeaderboard">
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <PlusIcon className="h-5 w-5"/>
+                                </ListItemPrefix>
+                                Create Leaderboard
+                            </ListItem>
                         </NavLink>
 
                         <NavLink exact to="/leaderboard/viewBoard" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="eye" className={"navBarItem"}>View Board</CDBSidebarMenuItem>
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <EyeIcon className="h-5 w-5"/>
+                                </ListItemPrefix>
+                                View Leaderboard
+                            </ListItem>
                         </NavLink>
 
-                        <NavLink exact to="/" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="chart-line" className={"navBarItem"}>Analytics</CDBSidebarMenuItem>
-                        </NavLink>
-                    </CDBSidebarMenu>
-                </CDBSidebarContent>
+                        <hr className="my-2 border-blue-gray-50"/>
 
-                <CDBSidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                        style={{
-                            padding: '20px 5px',
-                        }}
-                    >
-                        BattleBoards 2024
-                    </div>
-                </CDBSidebarFooter>
-            </CDBSidebar>
-        </div>
+                        <ListItem disabled={true}>
+                            <ListItemPrefix>
+                                <UserCircleIcon className="h-5 w-5"/>
+                            </ListItemPrefix>
+                            Profile
+                        </ListItem>
+
+                        <ListItem disabled={true}>
+                            <ListItemPrefix>
+                                <Cog6ToothIcon className="h-5 w-5"/>
+                            </ListItemPrefix>
+                            Settings
+                        </ListItem>
+
+                        <ListItem
+                            onClick={handleSignOut}
+                        >
+                            <ListItemPrefix>
+                                <PowerIcon className="h-5 w-5"/>
+                            </ListItemPrefix>
+                            Log Out
+                        </ListItem>
+                    </List>
+                </Card>
+            </Drawer>
+        </>
     );
-};
+}
 
-export default Sidebar;
+
+export default SidebarWithBurgerMenu;

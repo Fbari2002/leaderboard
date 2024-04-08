@@ -1,6 +1,5 @@
 import React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSquarePlus} from "@fortawesome/free-solid-svg-icons";
+import {PlusIcon} from "@heroicons/react/24/solid";
 import {db} from "./firebaseConfig";
 import {doc, updateDoc} from 'firebase/firestore';
 
@@ -14,7 +13,7 @@ const AddPoint = ({player, board}) => {
             await updateDoc(playerRef, {
                 players: board.players.map(p => {
                     if (p.playerName === player.playerName) {
-                        return { ...p, playerScore: newScore };
+                        return {...p, playerScore: newScore};
                     }
                     return p;
                 })
@@ -26,10 +25,8 @@ const AddPoint = ({player, board}) => {
     }
 
     return (
-        <FontAwesomeIcon
-            icon={faSquarePlus}
-            size="2xl"
-            className="point-icon"
+        <PlusIcon
+            className="h-5 w-5"
             onClick={handleAddPoint}
         />
     );
