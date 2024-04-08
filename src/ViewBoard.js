@@ -39,37 +39,37 @@ const ViewBoard = ({user}) => {
         fetchLeaderboard();
     });
 
-    const [boards, setBoards] = useState([
-        {
-            'leaderBoardName': 'name',
-            'players': [
-                {
-                    'playerName': 'test',
-                    'playerScore': 5
-                }, {
-                    'playerName': 'test2',
-                    'playerScore': 55
-                }, {
-                    'playerName': 'test3',
-                    'playerScore': 2
-                }
-            ]
-        }, {
-            'leaderBoardName': 'name2',
-            'players': [
-                {
-                    'playerName': 'test',
-                    'playerScore': 5
-                }, {
-                    'playerName': 'test2',
-                    'playerScore': 55
-                }, {
-                    'playerName': 'test3',
-                    'playerScore': 2
-                }
-            ]
-        }
-    ])
+    // const [boards, setBoards] = useState([
+    //     {
+    //         'leaderBoardName': 'name',
+    //         'players': [
+    //             {
+    //                 'playerName': 'test',
+    //                 'playerScore': 5
+    //             }, {
+    //                 'playerName': 'test2',
+    //                 'playerScore': 55
+    //             }, {
+    //                 'playerName': 'test3',
+    //                 'playerScore': 2
+    //             }
+    //         ]
+    //     }, {
+    //         'leaderBoardName': 'name2',
+    //         'players': [
+    //             {
+    //                 'playerName': 'test',
+    //                 'playerScore': 5
+    //             }, {
+    //                 'playerName': 'test2',
+    //                 'playerScore': 55
+    //             }, {
+    //                 'playerName': 'test3',
+    //                 'playerScore': 2
+    //             }
+    //         ]
+    //     }
+    // ]);
 
     return (
         <div>
