@@ -2,9 +2,9 @@ import React from "react";
 import AddPoint from "./AddPoint";
 import RemovePoint from "./RemovePoint";
 import FlipMove from "react-flip-move";
-import { Card, List, ListItem, ListItemSuffix, Typography } from "@material-tailwind/react";
+import {Card, List, ListItem, ListItemSuffix, Typography} from "@material-tailwind/react";
 
-const Board = ({ board }) => {
+const Board = ({board}) => {
     const calculateColor = (index, totalRows) => {
         const startColor = [128, 0, 128]; // #800080
         const endColor = [0, 128, 128]; // #008080
@@ -22,15 +22,16 @@ const Board = ({ board }) => {
 
     return (
         <div className="flex justify-center">
-            <Card className="p-4 mb-4 shadow-md">
-                <List key={board.id}>
-                    <div className="mb-4">
-                        <Typography variant="h6" color="blue-gray">
-                            {board.leaderBoardName}
-                        </Typography>
-                    </div>
+            <Card className="p-4 mb-4 shadow-md" key={board.id}>
+                <FlipMove>
+                    <List>
+                        <div className="mb-4">
+                            <Typography variant="h6" color="blue-gray">
+                                {board.leaderBoardName}
+                            </Typography>
+                        </div>
 
-                    <FlipMove>
+
                         {board.players.map((player, index) => (
                             <ListItem
                                 key={player.playerName}
@@ -51,13 +52,13 @@ const Board = ({ board }) => {
                                     </Typography>
                                 </div>
                                 <ListItemSuffix className="flex space-x-4">
-                                    <AddPoint player={player} board={board} />
-                                    <RemovePoint player={player} board={board} />
+                                    <AddPoint player={player} board={board}/>
+                                    <RemovePoint player={player} board={board}/>
                                 </ListItemSuffix>
                             </ListItem>
                         ))}
-                    </FlipMove>
-                </List>
+                    </List>
+                </FlipMove>
             </Card>
         </div>
     );

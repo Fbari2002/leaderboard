@@ -82,7 +82,7 @@ const ViewBoard = ({user}) => {
             <br/>
 
             <div>
-                {leaderboard.map((board) => (
+                {leaderboard && leaderboard.map((board) => (
                     <Board board={board}/>
                 ))}
             </div>
