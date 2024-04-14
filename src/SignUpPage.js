@@ -66,7 +66,7 @@ const SignUpPage = () => {
                             disabled={!validate()}
                             onClick={onSignUp}
                             color={"white"}
-                            gradient={true}
+                            gradient={"true"}
                             ripple={true}
                         >
                             Sign Up

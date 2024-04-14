@@ -63,7 +63,7 @@ const LoginRegisterPage = () => {
                             color="white"
                             className="px-4 py-2"
                             onClick={onLogin}
-                            gradient={true}
+                            gradient={"true"}
                             ripple={true}
                         >
                             Login

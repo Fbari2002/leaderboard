@@ -47,7 +47,7 @@ const ModalButton = () => {
         <>
             <Button
                 color={"white"}
-                gradient={true}
+                gradient={"true"}
                 ripple={true}
                 className="px-4 py-2"
                 onClick={openModal}
