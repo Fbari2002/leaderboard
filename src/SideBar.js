@@ -59,7 +59,7 @@ export function SidebarWithBurgerMenu() {
                 >
                     <div className="mb-2 flex items-center gap-4 p-4">
                         <img
-                            src={process.env.PUBLIC_URL + '/LogoNoText.png'}
+                            src={process.env.PUBLIC_URL + '/Logo.png'}
                             alt="brand"
                             className="h-10 w-10"
                         />
