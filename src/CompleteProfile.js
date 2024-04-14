@@ -108,7 +108,7 @@ const CompleteProfile = () => {
                         <Button
                             color="white"
                             type="submit"
-                            gradient={true}
+                            gradient={"true"}
                             ripple={true}
                             disabled={!validateForm()}
                         >

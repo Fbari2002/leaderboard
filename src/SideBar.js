@@ -58,9 +58,8 @@ export function SidebarWithBurgerMenu() {
                     className="h-[calc(100vh-2rem)] w-full p-4"
                 >
                     <div className="mb-2 flex items-center gap-4 p-4">
-                        {/*TODO Update logo*/}
                         <img
-                            src={process.env.PUBLIC_URL + '/Logo.png'}
+                            src={process.env.PUBLIC_URL + '/LogoNoText.png'}
                             alt="brand"
                             className="h-10 w-10"
                         />
