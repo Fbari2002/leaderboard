@@ -4,8 +4,8 @@ import {
     CardBody,
     Typography
 } from "@material-tailwind/react";
-import AddButton from "./AddButton";
-import ViewButton from "./ViewButton";
+import CreateLeaderboardButton from "./CreateLeaderboardButton";
+import ViewLeaderboardButton from "./ViewLeaderboardButton";
 import {getAuth} from "firebase/auth";
 
 function Dashboard() {
@@ -46,8 +46,8 @@ function Dashboard() {
             </Card>
 
             <div className="mt-4 flex flex-col items-center">
-                <AddButton/>
-                <ViewButton/>
+                <CreateLeaderboardButton/>
+                <ViewLeaderboardButton/>
             </div>
         </div>
     );

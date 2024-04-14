@@ -48,7 +48,7 @@ const Button = styled.button`
 `;
 
 
-const AddButton = () => {
+const CreateLeaderboardButton = () => {
     const navigate = useNavigate();
 
     const onAdd = () => {
@@ -67,4 +67,4 @@ const AddButton = () => {
     );
 };
 
-export default AddButton;
+export default CreateLeaderboardButton;

@@ -48,7 +48,7 @@ const Button = styled.button`
 `;
 
 
-const ViewButton = () => {
+const ViewLeaderboardButton = () => {
     const navigate = useNavigate();
 
     const onAdd = () => {
@@ -67,4 +67,4 @@ const ViewButton = () => {
     );
 };
 
-export default ViewButton;
+export default ViewLeaderboardButton;
