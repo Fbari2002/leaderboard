@@ -24,7 +24,7 @@ const Board = ({board}) => {
     };
 
     const handleOpen = () => {
-        navigate('/leaderboard/createLeaderboard', { state: { board } });
+        navigate('/leaderboard/createLeaderboard', {state: {board}});
     };
 
     return (
@@ -49,8 +49,11 @@ const Board = ({board}) => {
                         </Button>
                     </div>
 
-                    {board.players.map((player, index) => (
-                        <FlipMove>
+                    <FlipMove
+                        duration={10000}
+                        easing="ease"
+                    >
+                        {board.players.map((player, index) => (
                             <ListItem
                                 key={player.playerName}
                                 className="flex justify-between items-center"
@@ -75,8 +78,8 @@ const Board = ({board}) => {
                                     <RemovePoint player={player} board={board}/>
                                 </ListItemSuffix>
                             </ListItem>
-                        </FlipMove>
-                    ))}
+                        ))}
+                    </FlipMove>
                 </List>
             </Card>
         </div>
