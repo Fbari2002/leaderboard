@@ -44,7 +44,7 @@ const ViewBoard = ({ user }) => {
         };
 
         fetchLeaderboard();
-    }, []);
+    }, [user.email]);
 
     return (
         <div>
