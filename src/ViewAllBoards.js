@@ -1,90 +1,66 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./SideBar";
 import "./index.css";
-import {db} from "./firebaseConfig";
+import { db } from "./firebaseConfig";
 import {
     collection,
     query,
     where,
-    getDocs
+    onSnapshot
 } from "firebase/firestore";
 import Board from "./Board";
 
-const ViewBoard = ({user}) => {
+const ViewBoard = ({ user }) => {
     const [leaderboard, setLeaderBoard] = useState(null);
 
-    const fetchLeaderboard = async () => {
-        try {
-            const leaderboardCollectionRef = collection(db, "leaderboards");
-            const boardQuery = query(leaderboardCollectionRef, where("userID", "==", user.email));
-            const querySnapshot = await getDocs(boardQuery);
-
-            const fetchedBoard = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-
-            const sortedLeaderboard = fetchedBoard.map((board) => ({
-                ...board,
-                players: board.players.sort((a, b) => b.playerScore - a.playerScore)
-            }));
-
-            setLeaderBoard(sortedLeaderboard);
-        } catch (error) {
-            console.error("Error retrieving board:", error);
-        }
-    };
-
     useEffect(() => {
-        fetchLeaderboard();
-    });
+        const fetchLeaderboard = async () => {
+            console.log("fetch")
+            try {
+                const leaderboardCollectionRef = collection(db, "leaderboards");
+                const boardQuery = query(
+                    leaderboardCollectionRef,
+                    where("userID", "==", user.email)
+                );
 
-    // const [boards, setBoards] = useState([
-    //     {
-    //         'leaderBoardName': 'name',
-    //         'players': [
-    //             {
-    //                 'playerName': 'test',
-    //                 'playerScore': 5
-    //             }, {
-    //                 'playerName': 'test2',
-    //                 'playerScore': 55
-    //             }, {
-    //                 'playerName': 'test3',
-    //                 'playerScore': 2
-    //             }
-    //         ]
-    //     }, {
-    //         'leaderBoardName': 'name2',
-    //         'players': [
-    //             {
-    //                 'playerName': 'test',
-    //                 'playerScore': 5
-    //             }, {
-    //                 'playerName': 'test2',
-    //                 'playerScore': 55
-    //             }, {
-    //                 'playerName': 'test3',
-    //                 'playerScore': 2
-    //             }
-    //         ]
-    //     }
-    // ]);
+                const unsubscribe = onSnapshot(boardQuery, (querySnapshot) => {
+                    const fetchedBoard = querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    }));
+
+                    const sortedLeaderboard = fetchedBoard.map((board) => ({
+                        ...board,
+                        players: board.players.sort((a, b) => b.playerScore - a.playerScore),
+                    }));
+
+                    setLeaderBoard(sortedLeaderboard);
+                });
+
+                return () => unsubscribe();
+            } catch (error) {
+                console.error("Error retrieving board:", error);
+            }
+        };
+
+        fetchLeaderboard();
+    }, []);
 
     return (
         <div>
-            <Sidebar/>
+            <Sidebar />
 
             <div className="flex justify-center items-center py-4 bg-teal-700 text-white text-2xl font-bold">
                 View Leaderboard
             </div>
 
-            <br/>
+            <br />
 
             <div>
-                {leaderboard && leaderboard.map((board) => (
-                    <Board board={board}/>
-                ))}
+                {leaderboard &&
+                    leaderboard.map((board) => (
+                        <Board board={board} />
+                    ))}
             </div>
         </div>
     );
