@@ -93,8 +93,11 @@ const Profile = () => {
                             Reset Password
                         </ListItem>
 
-                        <ListItem className={"bg-red-700 text-white"}>
-                            <ListItemPrefix disabled={true}>
+                        <ListItem
+                            disabled={true}
+                            className={"bg-red-700 text-white"}
+                        >
+                            <ListItemPrefix >
                                 <TrashIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Delete Account
