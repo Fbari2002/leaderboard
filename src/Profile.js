@@ -27,23 +27,21 @@ const Profile = () => {
             setProfilePic(picUrl);
         };
 
+        const calculateMemberSince = () => {
+            const creationTime = auth.currentUser.metadata.creationTime;
+            const memberSinceDate = new Date(creationTime);
+            const memberSinceDateString = memberSinceDate.toLocaleDateString('en-UK', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            setMemberSince(memberSinceDateString);
+        }
+
         fetchProfilePic();
         calculateMemberSince();
     }, [auth.currentUser]);
-
-
-    const calculateMemberSince = () => {
-        const creationTime = auth.currentUser.metadata.creationTime;
-        const memberSinceDate = new Date(creationTime);
-        const memberSinceDateString = memberSinceDate.toLocaleDateString('en-UK', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
-        setMemberSince(memberSinceDateString);
-    }
-
 
     return (
         <div className="flex justify-center">
