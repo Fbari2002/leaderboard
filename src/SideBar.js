@@ -11,10 +11,10 @@ import {
 import {
     UserCircleIcon,
     Cog6ToothIcon,
-    PowerIcon,
     HomeIcon,
     PlusIcon,
-    EyeIcon
+    EyeIcon,
+    ArrowLeftStartOnRectangleIcon
 } from "@heroicons/react/24/solid";
 import {
     Bars3Icon,
@@ -97,12 +97,14 @@ export function SideBar() {
 
                         <hr className="my-2 border-blue-gray-50"/>
 
-                        <ListItem disabled={true}>
-                            <ListItemPrefix>
-                                <UserCircleIcon className="h-5 w-5"/>
-                            </ListItemPrefix>
-                            Profile
-                        </ListItem>
+                        <NavLink exact="true" to="/leaderboard/profile">
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <UserCircleIcon className="h-5 w-5"/>
+                                </ListItemPrefix>
+                                Profile
+                            </ListItem>
+                        </NavLink>
 
                         <ListItem disabled={true}>
                             <ListItemPrefix>
@@ -115,7 +117,7 @@ export function SideBar() {
                             onClick={handleSignOut}
                         >
                             <ListItemPrefix>
-                                <PowerIcon className="h-5 w-5"/>
+                                <ArrowLeftStartOnRectangleIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Log Out
                         </ListItem>

@@ -39,8 +39,7 @@ function Dashboard() {
                 </div>
                 <CardBody className="bg-white py-6 px-4 text-center">
                     <Typography className="text-lg text-gray-700">
-                        Explore the latest features and personalized content waiting for you. We're glad to have you
-                        back!
+                        Create your own BattleBoard today!
                     </Typography>
                 </CardBody>
             </Card>

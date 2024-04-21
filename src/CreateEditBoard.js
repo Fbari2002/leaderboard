@@ -4,7 +4,6 @@ import {Button} from "@material-tailwind/react";
 import {db} from "./firebaseConfig";
 import {addDoc, collection, doc, setDoc} from 'firebase/firestore';
 import sweetAlert from 'sweetalert';
-import SideBar from "./SideBar";
 
 const CreateEditBoard = ({user}) => {
     const navigate = useNavigate();
@@ -99,7 +98,6 @@ const CreateEditBoard = ({user}) => {
 
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col">
-            <SideBar/>
             <div className="flex justify-center items-center py-4 bg-teal-700 text-white text-2xl font-bold">
                 {board ? "Edit Leaderboard" : "Create Leaderboard"}
             </div>

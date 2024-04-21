@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "./SideBar";
+import React, {useEffect, useState} from "react";
 import "./index.css";
-import { db } from "./firebaseConfig";
+import {db} from "./firebaseConfig";
 import {
     collection,
     query,
@@ -10,12 +9,11 @@ import {
 } from "firebase/firestore";
 import Board from "./Board";
 
-const ViewBoard = ({ user }) => {
+const ViewBoard = ({user}) => {
     const [leaderboard, setLeaderBoard] = useState(null);
 
     useEffect(() => {
         const fetchLeaderboard = async () => {
-            console.log("fetch")
             try {
                 const leaderboardCollectionRef = collection(db, "leaderboards");
                 const boardQuery = query(
@@ -48,18 +46,16 @@ const ViewBoard = ({ user }) => {
 
     return (
         <div>
-            <Sidebar />
-
             <div className="flex justify-center items-center py-4 bg-teal-700 text-white text-2xl font-bold">
                 View Leaderboard
             </div>
 
-            <br />
+            <br/>
 
             <div>
                 {leaderboard &&
                     leaderboard.map((board) => (
-                        <Board key={board.id} board={board} />
+                        <Board key={board.id} board={board}/>
                     ))}
             </div>
         </div>

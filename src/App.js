@@ -1,13 +1,14 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import DefaultStack from './DefaultStack';
-import AuthenticatedStack from './AuthenticatedStack';
+import Dashboard from './Dashboard';
 import SignUp from './SignUpPage';
 import {useAuthentication} from "./UseAuth";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateEditBoard from "./CreateEditBoard";
-import CompleteProfile from "./CompleteProfile";
+import Profile from "./Profile";
 import ViewBoard from "./ViewAllBoards";
+import SideBar from "./SideBar";
 
 function App() {
     const {user} = useAuthentication();
@@ -22,24 +23,28 @@ function App() {
                 {/* Private routes */}
                 <Route path="/leaderboard/dashboard" element={
                     <ProtectedRoute user={user}>
-                        <AuthenticatedStack/>
+                        <SideBar/>
+                        <Dashboard/>
                     </ProtectedRoute>
                 }/>
 
                 <Route path="/leaderboard/createLeaderboard" element={
                     <ProtectedRoute user={user}>
+                        <SideBar/>
                         <CreateEditBoard user={user}/>
                     </ProtectedRoute>
                 }/>
 
-                <Route path="/leaderboard/completeProfile" element={
+                <Route path="/leaderboard/profile" element={
                     <ProtectedRoute user={user}>
-                        <CompleteProfile user={user}/>
+                        <SideBar/>
+                        <Profile/>
                     </ProtectedRoute>
                 }/>
 
                 <Route path="/leaderboard/viewBoard" element={
                     <ProtectedRoute user={user}>
+                        <SideBar/>
                         <ViewBoard user={user}/>
                     </ProtectedRoute>
                 }/>
