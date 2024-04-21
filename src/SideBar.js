@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     IconButton,
     Typography,
@@ -25,8 +25,8 @@ import {signOut} from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import sweetAlert from "sweetalert";
 
-export function SidebarWithBurgerMenu() {
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+export function SideBar() {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const openDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
     const auth = getAuth();
@@ -68,7 +68,7 @@ export function SidebarWithBurgerMenu() {
                         </Typography>
                     </div>
                     <List>
-                        <NavLink exact to="/leaderboard/dashboard">
+                        <NavLink exact="true" to="/leaderboard/dashboard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <HomeIcon className="h-5 w-5"/>
@@ -77,7 +77,7 @@ export function SidebarWithBurgerMenu() {
                             </ListItem>
                         </NavLink>
 
-                        <NavLink exact to="/leaderboard/createLeaderboard">
+                        <NavLink exact="true" to="/leaderboard/createLeaderboard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <PlusIcon className="h-5 w-5"/>
@@ -86,7 +86,7 @@ export function SidebarWithBurgerMenu() {
                             </ListItem>
                         </NavLink>
 
-                        <NavLink exact to="/leaderboard/viewBoard" activeClassName="activeClicked">
+                        <NavLink exact="true" to="/leaderboard/viewBoard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <EyeIcon className="h-5 w-5"/>
@@ -127,4 +127,4 @@ export function SidebarWithBurgerMenu() {
 }
 
 
-export default SidebarWithBurgerMenu;
+export default SideBar;
