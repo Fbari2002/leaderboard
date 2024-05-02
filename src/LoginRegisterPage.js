@@ -84,7 +84,7 @@ const LoginRegisterPage = () => {
                         <ModalButton/>
                     </div>
                     <p className="text-white text-center mb-0">Don't have an account?
-                        <Link to="/leaderboard/signup" className="text-blue-500 font-bold">
+                        <Link to="/signup" className="text-blue-500 font-bold">
                             <br/>Sign Up
                         </Link>
                     </p>

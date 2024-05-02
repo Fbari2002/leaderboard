@@ -6,19 +6,23 @@ import {
     Typography,
     List,
     ListItem,
-    ListItemPrefix
+    ListItemPrefix, Input,
 } from "@material-tailwind/react";
 import {
     PhotoIcon,
     IdentificationIcon,
     LockClosedIcon,
-    TrashIcon
+    TrashIcon,
 } from "@heroicons/react/24/solid";
-import {getAuth} from "firebase/auth";
+import {getAuth, updateProfile} from "firebase/auth";
+import {Button, Dialog} from "@material-tailwind/react";
 
 const Profile = () => {
     const [profilePic, setProfilePic] = useState(null);
-    const [memberSince, setMemberSince] = useState(null)
+    const [memberSince, setMemberSince] = useState(null);
+    const [userType, setUserType] = useState(null);
+    const [displayName, setDisplayName] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const auth = getAuth();
 
     useEffect(() => {
@@ -30,18 +34,51 @@ const Profile = () => {
         const calculateMemberSince = () => {
             const creationTime = auth.currentUser.metadata.creationTime;
             const memberSinceDate = new Date(creationTime);
-            const memberSinceDateString = memberSinceDate.toLocaleDateString('en-UK', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            const memberSinceDateString = memberSinceDate.toLocaleDateString(
+                "en-UK",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                }
+            );
+
+            const getUserType = () => {
+                const providerData = auth.currentUser.providerData;
+                if (providerData && providerData.length > 0) {
+                    const provider = providerData[0].providerId;
+                    if (provider === "google.com") {
+                        return "Google";
+                    } else if (provider === "password") {
+                        return "Email/Password";
+                    } else {
+                        return "Unknown";
+                    }
+                } else {
+                    return "Unknown";
+                }
+            };
 
             setMemberSince(memberSinceDateString);
-        }
+            setUserType(getUserType());
+            setDisplayName(auth.currentUser.displayName || "");
+        };
 
         fetchProfilePic();
         calculateMemberSince();
+        console.log(auth.currentUser);
     }, [auth.currentUser]);
+
+
+    const handleChangeName = async () => {
+        try {
+            await updateProfile(auth.currentUser, {displayName: displayName});
+            console.log("Display name updated successfully!");
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error("Error updating display name:", error.message);
+        }
+    };
 
     return (
         <div className="flex justify-center">
@@ -72,7 +109,10 @@ const Profile = () => {
                     </Typography>
 
                     <List>
-                        <ListItem disabled={true}>
+                        <ListItem
+                            disabled={userType === "Google"}
+                            onClick={() => setIsModalOpen(true)}
+                        >
                             <ListItemPrefix>
                                 <IdentificationIcon className="h-5 w-5"/>
                             </ListItemPrefix>
@@ -97,7 +137,7 @@ const Profile = () => {
                             disabled={true}
                             className={"bg-red-700 text-white"}
                         >
-                            <ListItemPrefix >
+                            <ListItemPrefix>
                                 <TrashIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Delete Account
@@ -105,8 +145,52 @@ const Profile = () => {
                     </List>
                 </CardBody>
             </Card>
+
+            <Dialog
+                size="sm"
+                open={isModalOpen}
+                handler={handleChangeName}
+                className="bg-transparent shadow-none"
+            >
+                <Card className="mx-auto w-full max-w-[24rem]">
+                    <CardBody className="flex flex-col gap-4">
+                        <Typography
+                            className="mb-3 font-normal"
+                            variant="paragraph"
+                            color="gray"
+                        >
+                            Enter your new profile name
+                        </Typography>
+                        <Input
+                            label="Profile Name"
+                            size="lg"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                        />
+
+                        <div className={"flex flex-row gap-4"}>
+                            <Button
+                                variant="gradient"
+                                onClick={() => setIsModalOpen(false)}
+                                fullWidth
+                                color={"red"}
+                            >
+                                Cancel
+                            </Button>
+
+                            <Button
+                                variant="gradient"
+                                onClick={handleChangeName}
+                                fullWidth
+                            >
+                                Update
+                            </Button>
+                        </div>
+                    </CardBody>
+                </Card>
+            </Dialog>
         </div>
-    )
+    );
 };
 
 export default Profile;

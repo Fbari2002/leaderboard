@@ -93,7 +93,7 @@ const CreateEditBoard = ({user}) => {
     };
 
     const handleSuccessNavigation = () => {
-        navigate('/leaderboard/viewBoard');
+        navigate('/viewBoard');
     }
 
     return (

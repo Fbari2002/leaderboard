@@ -27,7 +27,7 @@ const Board = ({board}) => {
     };
 
     const handleOpen = () => {
-        navigate('/leaderboard/createLeaderboard', {state: {board}});
+        navigate('/createLeaderboard', {state: {board}});
     };
 
     const handleDelete = async () => {

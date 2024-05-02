@@ -35,7 +35,7 @@ export function SideBar() {
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
-                navigate('/leaderboard')
+                navigate('/')
             })
             .catch((error) => {
                 sweetAlert("Oops!", "Something went wrong!\n" + error, "error");
@@ -68,7 +68,7 @@ export function SideBar() {
                         </Typography>
                     </div>
                     <List>
-                        <NavLink exact="true" to="/leaderboard/dashboard">
+                        <NavLink exact="true" to="/dashboard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <HomeIcon className="h-5 w-5"/>
@@ -77,7 +77,7 @@ export function SideBar() {
                             </ListItem>
                         </NavLink>
 
-                        <NavLink exact="true" to="/leaderboard/createLeaderboard">
+                        <NavLink exact="true" to="/createLeaderboard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <PlusIcon className="h-5 w-5"/>
@@ -86,7 +86,7 @@ export function SideBar() {
                             </ListItem>
                         </NavLink>
 
-                        <NavLink exact="true" to="/leaderboard/viewBoard">
+                        <NavLink exact="true" to="/viewBoard">
                             <ListItem>
                                 <ListItemPrefix>
                                     <EyeIcon className="h-5 w-5"/>
@@ -97,7 +97,7 @@ export function SideBar() {
 
                         <hr className="my-2 border-blue-gray-50"/>
 
-                        <NavLink exact="true" to="/leaderboard/profile">
+                        <NavLink exact="true" to="/profile">
                             <ListItem>
                                 <ListItemPrefix>
                                     <UserCircleIcon className="h-5 w-5"/>

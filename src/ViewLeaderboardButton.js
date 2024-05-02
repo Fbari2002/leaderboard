@@ -52,7 +52,7 @@ const ViewLeaderboardButton = () => {
     const navigate = useNavigate();
 
     const onAdd = () => {
-        navigate("/leaderboard/viewBoard");
+        navigate("/viewBoard");
     }
 
     return (
