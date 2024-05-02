@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword} from "firebase/auth";
 import {Link, useNavigate} from "react-router-dom";
 import {auth, signInWithGooglePopup} from "./firebaseConfig";
 import sweetAlert from 'sweetalert';
@@ -13,21 +13,26 @@ const LoginRegisterPage = () => {
 
     const onLogin = (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                navigate("/leaderboard/dashboard");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error(errorCode, errorMessage);
-                sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
-            });
+        setPersistence(auth, browserLocalPersistence).then(
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    navigate("/dashboard");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error(errorCode, errorMessage);
+                    sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
+                })
+        );
     }
 
     const logGoogleUser = async () => {
-        await signInWithGooglePopup();
-        navigate("/leaderboard/dashboard");
+        setPersistence(auth, browserLocalPersistence).then(
+            signInWithGooglePopup().then(() => {
+                navigate("/dashboard");
+            })
+        );
     }
 
     return (
