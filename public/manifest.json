@@ -2,7 +2,7 @@
   "name": "BattleBoards",
   "short_name": "BattleBoards",
   "description": "A Leaderboard app built using React, Tailwind CSS and Firebase",
-  "start_url": "/leaderboard",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
