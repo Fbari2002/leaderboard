@@ -52,7 +52,7 @@ const CreateLeaderboardButton = () => {
     const navigate = useNavigate();
 
     const onAdd = () => {
-        navigate("/leaderboard/createLeaderboard");
+        navigate("/createLeaderboard");
     }
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import DefaultStack from './DefaultStack';
+import LoginRegisterPage from "./LoginRegisterPage";
 import Dashboard from './Dashboard';
 import SignUp from './SignUpPage';
 import {useAuthentication} from "./UseAuth";
@@ -17,32 +17,32 @@ function App() {
         <Router>
             <Routes>
                 {/* Public routes */}
-                <Route path="/leaderboard" element={<DefaultStack/>}/>
-                <Route path="/leaderboard/signup" element={<SignUp/>}/>
+                <Route path="/" element={<LoginRegisterPage/>}/>
+                <Route path="/signup" element={<SignUp/>}/>
 
                 {/* Private routes */}
-                <Route path="/leaderboard/dashboard" element={
+                <Route path="/dashboard" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
                         <Dashboard/>
                     </ProtectedRoute>
                 }/>
 
-                <Route path="/leaderboard/createLeaderboard" element={
+                <Route path="/createLeaderboard" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
                         <CreateEditBoard user={user}/>
                     </ProtectedRoute>
                 }/>
 
-                <Route path="/leaderboard/profile" element={
+                <Route path="/profile" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
                         <Profile/>
                     </ProtectedRoute>
                 }/>
 
-                <Route path="/leaderboard/viewBoard" element={
+                <Route path="/viewBoard" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
                         <ViewBoard user={user}/>

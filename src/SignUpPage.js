@@ -20,7 +20,7 @@ const SignUpPage = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 //TODO should this re route to complete Profile?
-                navigate('/leaderboard/dashboard');
+                navigate('/dashboard');
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -74,7 +74,7 @@ const SignUpPage = () => {
                     </div>
                     <div className="mt-4">
                         <p className="text-white text-center mb-0">Already have an account?
-                            <Link to="/leaderboard" className="text-blue-500 font-bold">
+                            <Link to="/" className="text-blue-500 font-bold">
                                 <br/> Login
                             </Link>
                         </p>
