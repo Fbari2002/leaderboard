@@ -16,7 +16,7 @@ const CompleteProfile = () => {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user && user.displayName) {
-                navigate('/leaderboard/dashboard');
+                navigate('/dashboard');
             }
         });
 
@@ -36,7 +36,7 @@ const CompleteProfile = () => {
                 photoURL: photoURL,
             });
 
-            navigate('/leaderboard/dashboard');
+            navigate('/dashboard');
         } catch (error) {
             console.error('Error updating profile:', error);
             errorAlert('Oops!', 'Registration failed! Please try again\n' + error, 'error');
