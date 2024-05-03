@@ -1,16 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import LoginRegisterPage from "./LoginRegisterPage";
 import Dashboard from './Dashboard';
 import SignUp from './SignUpPage';
-import {useAuthentication} from "./UseAuth";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateEditBoard from "./CreateEditBoard";
 import Profile from "./Profile";
 import ViewBoard from "./ViewAllBoards";
 import SideBar from "./SideBar";
-import {UserContext, useUserContext} from "./userContext";
-import {onAuthStateChanged} from "firebase/auth";
+import {UserContext} from "./userContext";
 import {auth} from "./firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth";
 
@@ -40,7 +38,7 @@ function App() {
                 <Route path="/createLeaderboard" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
-                        <CreateEditBoard user={user}/>
+                        <CreateEditBoard/>
                     </ProtectedRoute>
                 }/>
 
@@ -54,7 +52,7 @@ function App() {
                 <Route path="/viewBoard" element={
                     <ProtectedRoute user={user}>
                         <SideBar/>
-                        <ViewBoard user={user}/>
+                        <ViewBoard/>
                     </ProtectedRoute>
                 }/>
             </Routes>

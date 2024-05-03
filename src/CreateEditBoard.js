@@ -4,8 +4,10 @@ import {Button} from "@material-tailwind/react";
 import {db} from "./firebaseConfig";
 import {addDoc, collection, doc, setDoc} from 'firebase/firestore';
 import sweetAlert from 'sweetalert';
+import {useUserContext} from "./userContext";
 
-const CreateEditBoard = ({user}) => {
+const CreateEditBoard = () => {
+    const user = useUserContext();
     const navigate = useNavigate();
     const location = useLocation();
     const {board} = location.state || {};

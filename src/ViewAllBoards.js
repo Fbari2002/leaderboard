@@ -8,9 +8,11 @@ import {
     onSnapshot
 } from "firebase/firestore";
 import Board from "./Board";
+import {useUserContext} from "./userContext";
 
-const ViewBoard = ({user}) => {
+const ViewBoard = () => {
     const [leaderboard, setLeaderBoard] = useState(null);
+    const user = useUserContext();
 
     useEffect(() => {
         const fetchLeaderboard = async () => {

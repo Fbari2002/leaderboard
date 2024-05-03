@@ -15,7 +15,6 @@ import {
     TrashIcon
 } from "@heroicons/react/24/solid";
 import {
-    getAuth,
     updateProfile,
     sendPasswordResetEmail,
     deleteUser
@@ -29,8 +28,10 @@ import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {collection, deleteDoc, query, where, getDocs} from "firebase/firestore";
 import {db} from "./firebaseConfig";
 import {useNavigate} from "react-router-dom";
+import {useUserContext} from "./userContext";
 
 const Profile = () => {
+    const user = useUserContext();
     const [profilePic, setProfilePic] = useState(null);
     const [memberSince, setMemberSince] = useState(null);
     const [userType, setUserType] = useState(null);
@@ -38,16 +39,15 @@ const Profile = () => {
     const [isNameChangeModelOpen, setIsNameChangeModelOpen] = useState(false);
     const [isPicModelOpen, setIsPicModelOpen] = useState(false);
     const navigate = useNavigate();
-    const auth = getAuth();
 
     useEffect(() => {
         const fetchProfilePic = async () => {
-            const picUrl = auth.currentUser ? auth.currentUser.photoURL : null;
+            const picUrl = user ? user.photoURL : null;
             setProfilePic(picUrl);
         };
 
         const calculateMemberSince = () => {
-            const creationTime = auth.currentUser.metadata.creationTime;
+            const creationTime = user.metadata.creationTime;
             const memberSinceDate = new Date(creationTime);
             const memberSinceDateString = memberSinceDate.toLocaleDateString(
                 "en-UK",
@@ -59,7 +59,7 @@ const Profile = () => {
             );
 
             const getUserType = () => {
-                const providerData = auth.currentUser.providerData;
+                const providerData = user.providerData;
                 if (providerData && providerData.length > 0) {
                     const provider = providerData[0].providerId;
                     if (provider === "google.com") {
@@ -76,18 +76,17 @@ const Profile = () => {
 
             setMemberSince(memberSinceDateString);
             setUserType(getUserType());
-            setDisplayName(auth.currentUser.displayName || "");
+            setDisplayName(user.displayName || "");
         };
 
         fetchProfilePic();
         calculateMemberSince();
-        console.log(auth.currentUser);
-    }, [auth.currentUser]);
+    }, [user]);
 
 
     const handleChangeName = async () => {
         try {
-            await updateProfile(auth.currentUser, {displayName: displayName});
+            await updateProfile(user, {displayName: displayName});
             console.log("Display name updated successfully!");
             setIsNameChangeModelOpen(false);
         } catch (error) {
@@ -96,7 +95,7 @@ const Profile = () => {
     };
 
     const handlePasswordReset = () => {
-        sendPasswordResetEmail(auth, auth.currentUser.email)
+        sendPasswordResetEmail(user, user.email)
             .then(() => {
                 sweetAlert("Almost there", "A password reset email has been sent", "success");
             })
@@ -106,7 +105,7 @@ const Profile = () => {
     }
 
     const handlePicChange = async () => {
-        await updateProfile(auth.currentUser, {
+        await updateProfile(user, {
             photoURL: profilePic,
         });
 
@@ -118,7 +117,7 @@ const Profile = () => {
 
         if (file) {
             const storage = getStorage();
-            const storageRef = ref(storage, 'profile_pics/' + auth.currentUser.uid);
+            const storageRef = ref(storage, 'profile_pics/' + user.uid);
             await uploadBytes(storageRef, file);
             const photoURL = await getDownloadURL(storageRef);
             setProfilePic(photoURL);
@@ -128,7 +127,7 @@ const Profile = () => {
     const handleAccountDelete = async () => {
         const confirmation = window.confirm("Are you sure you want to delete this account and all associated data?");
         if (confirmation) {
-            const q = query(collection(db, "leaderboards"), where("userID", "==", auth.currentUser.email));
+            const q = query(collection(db, "leaderboards"), where("userID", "==", user.email));
 
             const querySnapshot = await getDocs(q);
 
@@ -141,7 +140,7 @@ const Profile = () => {
                 }
             });
 
-            deleteUser(auth.currentUser).then(() => {
+            deleteUser(user).then(() => {
                 sweetAlert("Gone but not forgotten", "Sad to see you go but your account has been deleted", "success");
                 navigate("/");
             }).catch((error) => {
@@ -164,7 +163,7 @@ const Profile = () => {
                         )}
 
                         <Typography className="text-2xl font-bold mb-2">
-                            {auth.currentUser.displayName}
+                            {user.displayName}
                         </Typography>
 
                         <Typography className={"italic"}>
