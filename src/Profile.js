@@ -14,25 +14,20 @@ import {
     LockClosedIcon,
     TrashIcon,
 } from "@heroicons/react/24/solid";
-import {getAuth, updateProfile} from "firebase/auth";
+import {updateProfile} from "firebase/auth";
 import {Button, Dialog} from "@material-tailwind/react";
+import {useUserContext} from "./userContext";
 
 const Profile = () => {
-    const [profilePic, setProfilePic] = useState(null);
+    const user = useUserContext();
     const [memberSince, setMemberSince] = useState(null);
     const [userType, setUserType] = useState(null);
     const [displayName, setDisplayName] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const auth = getAuth();
 
     useEffect(() => {
-        const fetchProfilePic = async () => {
-            const picUrl = auth.currentUser ? auth.currentUser.photoURL : null;
-            setProfilePic(picUrl);
-        };
-
         const calculateMemberSince = () => {
-            const creationTime = auth.currentUser.metadata.creationTime;
+            const creationTime = user.metadata.creationTime;
             const memberSinceDate = new Date(creationTime);
             const memberSinceDateString = memberSinceDate.toLocaleDateString(
                 "en-UK",
@@ -44,7 +39,7 @@ const Profile = () => {
             );
 
             const getUserType = () => {
-                const providerData = auth.currentUser.providerData;
+                const providerData = user.providerData;
                 if (providerData && providerData.length > 0) {
                     const provider = providerData[0].providerId;
                     if (provider === "google.com") {
@@ -61,18 +56,16 @@ const Profile = () => {
 
             setMemberSince(memberSinceDateString);
             setUserType(getUserType());
-            setDisplayName(auth.currentUser.displayName || "");
+            setDisplayName(user.displayName || "");
         };
 
-        fetchProfilePic();
         calculateMemberSince();
-        console.log(auth.currentUser);
-    }, [auth.currentUser]);
+    }, [user]);
 
 
     const handleChangeName = async () => {
         try {
-            await updateProfile(auth.currentUser, {displayName: displayName});
+            await updateProfile(user, {displayName: displayName});
             console.log("Display name updated successfully!");
             setIsModalOpen(false);
         } catch (error) {
@@ -85,16 +78,16 @@ const Profile = () => {
             <Card className="max-w-2xl rounded-lg overflow-hidden">
                 <CardHeader floated={false}>
                     <div className="custom-gradient text-white py-8 px-4 text-center">
-                        {profilePic && (
+                        {user.photoURL && (
                             <img
-                                src={profilePic}
+                                src={user.photoURL}
                                 alt="Profile Pic"
                                 className="w-24 h-24 rounded-full mx-auto mb-4 shadow-md"
                             />
                         )}
 
                         <Typography className="text-2xl font-bold mb-2">
-                            {auth.currentUser.displayName}
+                            {user.displayName}
                         </Typography>
 
                         <Typography className={"italic"}>

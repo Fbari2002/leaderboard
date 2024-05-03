@@ -13,8 +13,8 @@ const LoginRegisterPage = () => {
 
     const onLogin = (e) => {
         e.preventDefault();
-        setPersistence(auth, browserLocalPersistence).then(
-            signInWithEmailAndPassword(auth, email, password)
+        setPersistence(auth, browserLocalPersistence).then(() => {
+            return signInWithEmailAndPassword(auth, email, password)
                 .then(() => {
                     navigate("/dashboard");
                 })
@@ -23,16 +23,16 @@ const LoginRegisterPage = () => {
                     const errorMessage = error.message;
                     console.error(errorCode, errorMessage);
                     sweetAlert("Oops!", "Something went wrong!\n" + errorMessage, "error");
-                })
-        );
+                });
+        });
     }
 
     const logGoogleUser = async () => {
-        setPersistence(auth, browserLocalPersistence).then(
-            signInWithGooglePopup().then(() => {
-                navigate("/dashboard");
-            })
-        );
+        setPersistence(auth, browserLocalPersistence).then(() => {
+            return signInWithGooglePopup().then(() => {
+                    navigate("/dashboard");
+                });
+        });
     }
 
     return (

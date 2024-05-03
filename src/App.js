@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import LoginRegisterPage from "./LoginRegisterPage";
 import Dashboard from './Dashboard';
@@ -9,11 +9,20 @@ import CreateEditBoard from "./CreateEditBoard";
 import Profile from "./Profile";
 import ViewBoard from "./ViewAllBoards";
 import SideBar from "./SideBar";
+import {UserContext, useUserContext} from "./userContext";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "./firebaseConfig";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 function App() {
-    const {user} = useAuthentication();
+    const [user, loading, error] = useAuthState(auth);
+
+    if (loading) {
+        return "loading...";
+    }
 
     return (
+        <UserContext.Provider value={user}>
         <Router>
             <Routes>
                 {/* Public routes */}
@@ -50,6 +59,7 @@ function App() {
                 }/>
             </Routes>
         </Router>
+        </UserContext.Provider>
     );
 }
 
