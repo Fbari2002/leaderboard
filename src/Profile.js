@@ -12,17 +12,32 @@ import {
     PhotoIcon,
     IdentificationIcon,
     LockClosedIcon,
-    TrashIcon,
+    TrashIcon
 } from "@heroicons/react/24/solid";
-import {getAuth, updateProfile} from "firebase/auth";
-import {Button, Dialog} from "@material-tailwind/react";
+import {
+    getAuth,
+    updateProfile,
+    sendPasswordResetEmail,
+    deleteUser
+} from "firebase/auth";
+import {
+    Button,
+    Dialog
+} from "@material-tailwind/react";
+import sweetAlert from "sweetalert";
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {collection, deleteDoc, query, where, getDocs} from "firebase/firestore";
+import {db} from "./firebaseConfig";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
     const [profilePic, setProfilePic] = useState(null);
     const [memberSince, setMemberSince] = useState(null);
     const [userType, setUserType] = useState(null);
     const [displayName, setDisplayName] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isNameChangeModelOpen, setIsNameChangeModelOpen] = useState(false);
+    const [isPicModelOpen, setIsPicModelOpen] = useState(false);
+    const navigate = useNavigate();
     const auth = getAuth();
 
     useEffect(() => {
@@ -74,11 +89,66 @@ const Profile = () => {
         try {
             await updateProfile(auth.currentUser, {displayName: displayName});
             console.log("Display name updated successfully!");
-            setIsModalOpen(false);
+            setIsNameChangeModelOpen(false);
         } catch (error) {
             console.error("Error updating display name:", error.message);
         }
     };
+
+    const handlePasswordReset = () => {
+        sendPasswordResetEmail(auth, auth.currentUser.email)
+            .then(() => {
+                sweetAlert("Almost there", "A password reset email has been sent", "success");
+            })
+            .catch((error) => {
+                sweetAlert("Oops!", "Something went wrong!\n" + error, "error");
+            });
+    }
+
+    const handlePicChange = async () => {
+        await updateProfile(auth.currentUser, {
+            photoURL: profilePic,
+        });
+
+        setIsPicModelOpen(false);
+    }
+
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const storage = getStorage();
+            const storageRef = ref(storage, 'profile_pics/' + auth.currentUser.uid);
+            await uploadBytes(storageRef, file);
+            const photoURL = await getDownloadURL(storageRef);
+            setProfilePic(photoURL);
+        }
+    };
+
+    const handleAccountDelete = async () => {
+        const confirmation = window.confirm("Are you sure you want to delete this account and all associated data?");
+        if (confirmation) {
+            const q = query(collection(db, "leaderboards"), where("userID", "==", auth.currentUser.email));
+
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach(async (doc) => {
+                try {
+                    await deleteDoc(doc.ref);
+                    console.log("Document successfully deleted!");
+                } catch (error) {
+                    console.error("Error deleting document: ", error);
+                }
+            });
+
+            deleteUser(auth.currentUser).then(() => {
+                sweetAlert("Gone but not forgotten", "Sad to see you go but your account has been deleted", "success");
+                navigate("/");
+            }).catch((error) => {
+                sweetAlert("Oops!", "Something went wrong!\n" + error, "error");
+            });
+        }
+    }
 
     return (
         <div className="flex justify-center">
@@ -111,7 +181,7 @@ const Profile = () => {
                     <List>
                         <ListItem
                             disabled={userType === "Google"}
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => setIsNameChangeModelOpen(true)}
                         >
                             <ListItemPrefix>
                                 <IdentificationIcon className="h-5 w-5"/>
@@ -119,14 +189,20 @@ const Profile = () => {
                             Update Profile Name
                         </ListItem>
 
-                        <ListItem disabled={true}>
+                        <ListItem
+                            disabled={userType === "Google"}
+                            onClick={() => setIsPicModelOpen(true)}
+                        >
                             <ListItemPrefix>
                                 <PhotoIcon className="h-5 w-5"/>
                             </ListItemPrefix>
                             Update Profile Pic
                         </ListItem>
 
-                        <ListItem disabled={true}>
+                        <ListItem
+                            disabled={userType === "Google"}
+                            onClick={handlePasswordReset}
+                        >
                             <ListItemPrefix>
                                 <LockClosedIcon className="h-5 w-5"/>
                             </ListItemPrefix>
@@ -134,8 +210,8 @@ const Profile = () => {
                         </ListItem>
 
                         <ListItem
-                            disabled={true}
                             className={"bg-red-700 text-white"}
+                            onClick={handleAccountDelete}
                         >
                             <ListItemPrefix>
                                 <TrashIcon className="h-5 w-5"/>
@@ -148,7 +224,7 @@ const Profile = () => {
 
             <Dialog
                 size="sm"
-                open={isModalOpen}
+                open={isNameChangeModelOpen}
                 handler={handleChangeName}
                 className="bg-transparent shadow-none"
             >
@@ -171,7 +247,7 @@ const Profile = () => {
                         <div className={"flex flex-row gap-4"}>
                             <Button
                                 variant="gradient"
-                                onClick={() => setIsModalOpen(false)}
+                                onClick={() => setIsNameChangeModelOpen(false)}
                                 fullWidth
                                 color={"red"}
                             >
@@ -181,6 +257,52 @@ const Profile = () => {
                             <Button
                                 variant="gradient"
                                 onClick={handleChangeName}
+                                fullWidth
+                            >
+                                Update
+                            </Button>
+                        </div>
+                    </CardBody>
+                </Card>
+            </Dialog>
+
+
+            <Dialog
+                size="sm"
+                open={isPicModelOpen}
+                className="bg-transparent shadow-none"
+            >
+                <Card className="mx-auto w-full max-w-[24rem]">
+                    <CardBody className="flex flex-col gap-4">
+                        <Typography
+                            className="mb-3 font-normal"
+                            variant="paragraph"
+                            color="gray"
+                        >
+                            Upload your new profile picture
+                        </Typography>
+
+                        <Input
+                            label={"Profile Picture"}
+                            type="file"
+                            size="lg"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+
+                        <div className={"flex flex-row gap-4"}>
+                            <Button
+                                variant="gradient"
+                                onClick={() => setIsPicModelOpen(false)}
+                                fullWidth
+                                color={"red"}
+                            >
+                                Cancel
+                            </Button>
+
+                            <Button
+                                variant="gradient"
+                                onClick={handlePicChange}
                                 fullWidth
                             >
                                 Update
