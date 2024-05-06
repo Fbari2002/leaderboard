@@ -14,7 +14,7 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import LandingPage from "./LandingPage";
 
 function App() {
-    const [user, loading, error] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
 
     if (loading) {
         return "loading...";

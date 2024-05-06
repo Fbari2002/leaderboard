@@ -146,7 +146,7 @@ const LandingPage = () => {
                         <CardHeader className="h-80">
                             <img
                                 src="https://media.licdn.com/dms/image/D4E03AQGg2QkMGp1NsA/profile-displayphoto-shrink_200_200/0/1706303089663?e=1720656000&v=beta&t=jn1c-mGOtXdbRiBd1t8w_1HCd9nBEnDc6ALGv8a_yNI"
-                                alt="Profile Picture"
+                                alt={"Profile - Fatima Bari"}
                                 className="w-full h-full object-cover"
                             />
                         </CardHeader>
