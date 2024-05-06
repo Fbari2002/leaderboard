@@ -27,12 +27,13 @@ const LandingPage = () => {
                 <div>
                     <h1 className="text-2xl font-bold text-white">BattleBoards</h1>
                 </div>
-                <div>
+                <div className="flex flex-wrap justify-center sm:justify-start">
                     <Button
                         onClick={handleLogin}
                         variant="gradient"
                         color={"white"}
-                        className="mr-2 text-purple-800"
+                        size="sm"
+                        className="mr-2 text-purple-800 w-2/5"
                     >
                         Login
                     </Button>
@@ -40,7 +41,8 @@ const LandingPage = () => {
                         onClick={handleRegister}
                         variant="gradient"
                         color={"white"}
-                        className="text-purple-800"
+                        size="sm"
+                        className="text-purple-800 w-1/2"
                     >
                         Register
                     </Button>
