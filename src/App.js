@@ -11,6 +11,7 @@ import SideBar from "./SideBar";
 import {UserContext} from "./userContext";
 import {auth} from "./firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth";
+import LandingPage from "./LandingPage";
 
 function App() {
     const [user, loading, error] = useAuthState(auth);
@@ -24,8 +25,9 @@ function App() {
         <Router>
             <Routes>
                 {/* Public routes */}
-                <Route path="/" element={<LoginRegisterPage/>}/>
-                <Route path="/signup" element={<SignUp/>}/>
+                <Route path="/" element={<LandingPage/>}/>
+                <Route path="/login" element={<LoginRegisterPage/>}/>
+                <Route path="/register" element={<SignUp/>}/>
 
                 {/* Private routes */}
                 <Route path="/dashboard" element={
