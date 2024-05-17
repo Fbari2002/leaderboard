@@ -7,7 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import CreateEditBoard from "./CreateEditBoard";
 import Profile from "./Profile";
 import ViewBoard from "./ViewAllBoards";
-import SideBar from "./SideBar";
+import Header from "./Header";
 import {UserContext} from "./userContext";
 import {auth} from "./firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth";
@@ -32,28 +32,28 @@ function App() {
                 {/* Private routes */}
                 <Route path="/dashboard" element={
                     <ProtectedRoute user={user}>
-                        <SideBar/>
+                        <Header/>
                         <Dashboard/>
                     </ProtectedRoute>
                 }/>
 
                 <Route path="/createLeaderboard" element={
                     <ProtectedRoute user={user}>
-                        <SideBar/>
+                        <Header/>
                         <CreateEditBoard/>
                     </ProtectedRoute>
                 }/>
 
                 <Route path="/profile" element={
                     <ProtectedRoute user={user}>
-                        <SideBar/>
+                        <Header/>
                         <Profile/>
                     </ProtectedRoute>
                 }/>
 
                 <Route path="/viewBoard" element={
                     <ProtectedRoute user={user}>
-                        <SideBar/>
+                        <Header/>
                         <ViewBoard/>
                     </ProtectedRoute>
                 }/>
